@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Waste Reduction System | Rahul Nalte</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: var(--soft-sand);
+        }
+
+        .cs-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            padding: 0 5%;
+        }
+
+        /* General Section Styles */
+
+        /* General Section Styles */
+        section {
+            padding: 100px 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cs-hero {
+            min-height: 90vh;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            padding-top: 100px;
+        }
+
+        .cs-hero-hook {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--deep-brown);
+            line-height: 1.1;
+            margin-bottom: 2rem;
+        }
+
+        .cs-hero-outcome {
+            font-size: 1.5rem;
+            color: var(--warm-cocoa);
+            font-weight: 500;
+            margin-bottom: 3rem;
+        }
+
+        .cs-meta {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 2rem;
+        }
+
+        .meta-item label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--muted-clay);
+            margin-bottom: 0.5rem;
+        }
+
+        .meta-item span {
+            font-weight: 600;
+            color: var(--deep-brown);
+        }
+
+
+
+        .img-container img {
+            width: 70%;
+            display: block;
+        }
+
+        /* Problem Grid */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .problem-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+        }
+
+        /* Why Cards */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .why-card {
+            background: var(--card-bg);
+            padding: 3rem 2rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        /* Split Layouts */
+        .split-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .persona-card {
+            background: var(--elevated-surface);
+            padding: 3rem;
+            border-radius: 12px;
+        }
+
+        .persona-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+            border: 2px solid var(--deep-brown);
+        }
+
+        .hindi-quote {
+            font-style: italic;
+            color: var(--warm-cocoa);
+            margin-top: 2rem;
+            display: block;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.5rem;
+        }
+
+        /* Refined Tree Chart for 4-Layer Architecture */
+        .tree-chart {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 0;
+
+        }
+
+        .tree-node {
+            border: 1.5px solid var(--deep-brown);
+            padding: 1.2rem 1.8rem;
+            display: inline-block;
+            background: white;
+            position: relative;
+            z-index: 1;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--deep-brown);
+            min-width: 180px;
+            text-align: center;
+            transition: var(--transition-premium);
+        }
+
+        .tree-node:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(74, 46, 42, 0.05);
+        }
+
+        .tree-line {
+            width: 1.5px;
+            background: var(--border-color);
+            height: 40px;
+        }
+
+        .tree-branch {
+            position: relative;
+            width: 90%;
+            height: 1.5px;
+            background: var(--border-color);
+        }
+
+        .tree-branch::before,
+        .tree-branch::after,
+        .tree-branch-center {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 1.5px;
+            height: 40px;
+            background: var(--border-color);
+        }
+
+        .tree-branch::before {
+            left: 0;
+        }
+
+        .tree-branch::after {
+            right: 0;
+        }
+
+        .tree-branch-center {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .tree-split {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            width: 100%;
+            margin-top: 40px;
+        }
+
+        .tree-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+
+        /* Design Strategy Pillars */
+        .pillar-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .pillar-card {
+            text-align: center;
+            padding: 2rem;
+            background: var(--elevated-surface);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Solution Gallery */
+        .solution-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+        }
+
+        .screen-container {
+            text-align: center;
+        }
+
+        .screen-container img {
+            width: 90%;
+        }
+
+        /* Success Showcase */
+        .impact-story {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .impact-metrics {
+            display: flex;
+            justify-content: space-around;
+            padding: 60px 0;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            margin: 4rem 0;
+        }
+
+        .metric h4 {
+            font-size: 3.5rem;
+            color: var(--deep-brown);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Cultural Differentiator */
+        .cultural-section {
+            text-align: center;
+            padding: 120px 0;
+        }
+
+        .cultural-symbol {
+            font-family: var(--font-heading);
+            font-size: 4rem;
+            color: var(--warm-cocoa);
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 1024px) {
+
+            .cs-hero,
+            .split-2,
+            .grid-3,
+            .pillar-grid,
+            .solution-gallery,
+            .problem-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .flow-children {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .progress-nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation System -->
+    <nav class="navbar" id="navbar">
+        <a href="index.html" class="design-signature">
+            <svg class="signature-mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 26V6h8a5 5 0 0 1 0 10H6M13 16l7 10" />
+                <path d="M22 26V6l6 20V6" />
+            </svg>
+            <span class="logo-text">Rahul Nalte</span>
+        </a>
+        <div class="nav-right">
+            <ul class="nav-links">
+                <li><a href="index.html#work" class="nav-link">Work</a></li>
+                <li><a href="index.html#about" class="nav-link">About</a></li>
+                <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+                <li><a href="Rahul_Nalte_Resume_27.pdf" download class="nav-resume">Resume</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Back Button -->
+    <a href="index.html" class="back-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        Back
+    </a>
+
+    <!-- Sticky Navigation -->
+    <nav class="progress-nav">
+        <a href="#hero" class="progress-item active">
+            <div class="progress-dot"></div><span class="progress-label">Start</span>
+        </a>
+        <a href="#problem" class="progress-item">
+            <div class="progress-dot"></div><span class="progress-label">Problem</span>
+        </a>
+        <a href="#research" class="progress-item">
+            <div class="progress-dot"></div><span class="progress-label">Insight</span>
+        </a>
+        <a href="#solution" class="progress-item">
+            <div class="progress-dot"></div><span class="progress-label">Solution</span>
+        </a>
+        <a href="#impact" class="progress-item">
+            <div class="progress-dot"></div><span class="progress-label">Impact</span>
+        </a>
+    </nav>
+
+    <div class="cs-container">
+
+        <!-- SECTION 1: CINEMATIC HERO -->
+        <section id="hero" class="cs-hero">
+            <div class="hero-left">
+                <h1 class="cs-hero-hook">“Food wasn’t being wasted in kitchens. It was being wasted in decisions.”</h1>
+                <p class="cs-hero-outcome">Reduced food waste by 25% through behavior-driven UX</p>
+                <div class="cs-meta">
+                    <div class="meta-item"><label>Timeline</label><span>4 Weeks</span></div>
+                    <div class="meta-item"><label>Platform</label><span>Mobile</span></div>
+                    <div class="meta-item"><label>Role</label><span>Product Designer</span></div>
+                </div>
+            </div>
+            <div class="hero-right">
+                <div class="img-container">
+                    <img src="image/Food/Home Screen.png" alt="Food Management App Home Screen">
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: PROBLEM -->
+        <section id="problem">
+            <p class="cs-hero-outcome">FAILURE</p>
+            <p
+                style="font-family: var(--font-heading); font-size: 2.2rem; margin-bottom: 3rem; color: var(--deep-brown);">
+                “Food waste is not a supply problem. It is a coordination failure.”</p>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <h4>20–25% wasted daily</h4>
+                    <p>Significant portions of prepared meals are discarded every single day.</p>
+                </div>
+                <div class="problem-card">
+                    <h4>No real-time tracking</h4>
+                    <p>Owner's prepare food based on vague registration numbers, not active presence.</p>
+                </div>
+                <div class="problem-card">
+                    <h4>Unplanned skipping</h4>
+                    <p>Students skip meals due to fatigue or sudden plans without informing the kitchen.</p>
+                </div>
+                <div class="problem-card">
+                    <h4>Operational blindness</h4>
+                    <p>Mess owners have zero data loop to optimize future meal preparation.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: WHY THIS MATTERS -->
+        <section id="why">
+            <p class="cs-hero-outcome">WHY THIS MATTERS</p>
+            <div class="grid-3">
+                <div class="why-card">
+                    <h4 style="color: var(--warm-cocoa)">Economic Loss</h4>
+                    <p>Substantial financial drain for hostel owners due to over-purchasing and disposal costs.</p>
+                </div>
+                <div class="why-card">
+                    <h4 style="color: var(--warm-cocoa)">Behavioral Gap</h4>
+                    <p>Current systems demand too much effort from students to confirm attendance.</p>
+                </div>
+                <div class="why-card">
+                    <h4 style="color: var(--warm-cocoa)">System Breakdown</h4>
+                    <p>Zero feedback loop between the consuming student and the producing kitchen.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: GOALS -->
+        <section id="goals">
+            <p class="cs-hero-outcome">GOALS</p>
+            <div class="split-2">
+                <div class="persona-card">
+                    <h3 style="margin-bottom: 1.5rem; color: var(--deep-brown);">Student Goals</h3>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 1rem;">
+                        <li>• Confirm/Skip meals in &lt;2 seconds</li>
+                        <li>• Feel rewarded for active participation</li>
+                        <li>• Minimal cognitive effort, maximum clarity</li>
+                    </ul>
+                </div>
+                <div class="persona-card" style="background: var(--card-bg); border: 1px solid var(--border-color);">
+                    <h3 style="margin-bottom: 1.5rem; color: var(--deep-brown);">Owner Goals</h3>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 1rem;">
+                        <li>• Reduce daily food waste by 20–30%</li>
+                        <li>• Optimize grocery purchase and prep</li>
+                        <li>• Improve overall operational efficiency</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: CONSTRAINTS -->
+        <section id="constraints">
+            <p class="cs-hero-outcome">CONSTRAINTS</p>
+            <div class="grid-3">
+                <div class="why-card" style="padding: 2.5rem 1.5rem;">
+                    <h4>Real-time Dependency</h4>
+                    <p>System must reflect changes instantly to be useful for kitchen planning.</p>
+                </div>
+                <div class="why-card" style="padding: 2.5rem 1.5rem;">
+                    <h4>Low Bandwidth</h4>
+                    <p>Designed for speed on 3G/4G hostel networks during peak hours.</p>
+                </div>
+                <div class="why-card" style="padding: 2.5rem 1.5rem;">
+                    <h4>Budget Constraints</h4>
+                    <p>Economical reward system that doesn't impact hostel profit margins.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: RESEARCH -->
+        <section id="research">
+            <div class="split-2">
+                <div class="research-left">
+                    <h2 class="section-title">Research Methods</h2>
+                    <p style="margin-top: 1rem; color: var(--text-secondary);">Direct engagement with active
+                        stakeholders to identify the behavioral 'drop-off' points.</p>
+                    <div style="margin-top: 2rem; display: flex; gap: 2rem;">
+                        <div>
+                            <h4 style="font-size: 2.5rem; color: var(--deep-brown);">12+</h4>
+                            <p>Student Interviews</p>
+                        </div>
+                        <div>
+                            <h4 style="font-size: 2.5rem; color: var(--deep-brown);">5</h4>
+                            <p>Owner Sessions</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="research-right">
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        <div class="problem-card"><strong>Insight:</strong> Users decide to eat or skip in less than 2
+                            seconds. Any delay leads to abandonment.</div>
+                        <div class="problem-card"><strong>Insight:</strong> Gamified progress (points/badges)
+                            significantly increases student regular confirmation.</div>
+                        <div class="problem-card"><strong>Insight:</strong> Clean data visibility is the #1 requested
+                            feature for mess administrators.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 7: PERSONAS -->
+        <section id="personas">
+            <p class="cs-hero-outcome">The BOTH SIDE</p>
+            <div class="split-2">
+                <div class="persona-card">
+                    <img src="image/Ajay.png" alt="Ajay" class="persona-img">
+                    <h3 style="color: var(--deep-brown)">The Fast-Paced Student</h3>
+                    <p style="margin: 1rem 0;">Needs convenience. If it's not a single-tap action, Students won't do it.
+                        High value for small rewards.</p>
+                    <span class="hindi-quote">"Agar mujhe har baar sirf yeh kehne ke liye login karna pade ki main nahi
+                        kha raha hoon, toh main app ko hi use karna chhod dunga."</span>
+                </div>
+                <div class="persona-card">
+                    <img src="image/Owner.png" alt="Amit" class="persona-img">
+                    <h3 style="color: var(--deep-brown)">The Over-Cautious Owner</h3>
+                    <p style="margin: 1rem 0;">Struggles with financial leaks. Needs a dashboard that tells exactly
+                        how much rice to cook at 10 AM.</p>
+                    <span class="hindi-quote">"Main roz 100 logon ke liye khana taiyaar karta hoon, lekin sirf 70 hi
+                        aate hain.Jo khana consume nahi hota, usse mujhe nuksaan ho raha hai."</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 7.5: SKETCHES -->
+        <section id="sketches" style="padding-bottom: 0;">
+            <div style="max-width: 1000px; margin: 0 auto;">
+                <p class="cs-hero-outcome">I START FROM</p>
+                <div class="img-container" style="background: white; padding: 2rem; border-radius: 12px;">
+                    <img src="image/Food/Sketch.png" alt="Early Research Sketches" style="width: 100%;">
+                </div>
+                <p
+                    style="margin-top: 2rem; font-family: var(--font-body); font-style: italic; color: var(--warm-cocoa); font-size: 1.1rem; line-height: 1.5;">
+                    "Khaane ki keemat unse poocho jinhe ek waqt ki roti bhi naseeb nahi hoti." This Hit's me Then I
+                    Start..
+                </p>
+            </div>
+        </section>
+
+        <!-- SECTION 8: USER FLOW TREE -->
+        <section id="flow">
+            <p class="cs-hero-outcome">SYSTEM</p>
+            <div class="flow-container">
+                <div class="tree-chart">
+                    <!-- Layer 1: Root -->
+                    <div class="tree-node">FOOD WASTE MANAGEMENT APP</div>
+                    <div class="tree-line"></div>
+
+                    <!-- Layer 2: Action Pillars -->
+                    <div class="tree-branch">
+                        <div class="tree-branch-center"></div>
+                    </div>
+                    <div class="tree-split">
+
+                        <!-- Pillar 1: Onboarding -->
+                        <div class="tree-column">
+                            <div class="tree-node" style="background: var(--elevated-surface);">SYSTEM ENTRY</div>
+                            <div class="tree-line"></div>
+                            <!-- Layer 3 -->
+                            <div class="tree-node">Onboarding</div>
+                            <div class="tree-line"></div>
+                            <!-- Layer 4 -->
+                            <div class="tree-node" style="font-size: 0.75rem; border-color: var(--muted-clay);">Role
+                                Auth</div>
+                        </div>
+
+                        <!-- Pillar 2: Active Usage -->
+                        <div class="tree-column" style="flex: 2;">
+                            <div class="tree-node" style="background: var(--elevated-surface);">USER EXPERIENCE</div>
+                            <div class="tree-line"></div>
+                            <!-- Layer 3 Split -->
+                            <div class="tree-branch"></div>
+                            <div class="tree-split" style="margin-top: 40px;">
+                                <div class="tree-column">
+                                    <div class="tree-node">Student Portal</div>
+                                    <div class="tree-line"></div>
+                                    <!-- Layer 4 -->
+                                    <div class="tree-node" style="font-size: 0.75rem; border-color: var(--muted-clay);">
+                                        Meal Tracking</div>
+                                </div>
+                                <div class="tree-column">
+                                    <div class="tree-node">Mess Dashboard</div>
+                                    <div class="tree-line"></div>
+                                    <!-- Layer 4 -->
+                                    <div class="tree-node" style="font-size: 0.75rem; border-color: var(--muted-clay);">
+                                        Prep Visibility</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pillar 3: Intelligence -->
+                        <div class="tree-column" style="flex: 2;">
+                            <div class="tree-node" style="background: var(--elevated-surface);">CORE ENGINE</div>
+                            <div class="tree-line"></div>
+                            <!-- Layer 3 Split -->
+                            <div class="tree-branch"></div>
+                            <div class="tree-split" style="margin-top: 40px;">
+                                <div class="tree-column">
+                                    <div class="tree-node">Ecosystem</div>
+                                    <div class="tree-line"></div>
+                                    <!-- Layer 4 -->
+                                    <div class="tree-node" style="font-size: 0.75rem; border-color: var(--muted-clay);">
+                                        Gamified Rewards</div>
+                                </div>
+                                <div class="tree-column">
+                                    <div class="tree-node">Analytics</div>
+                                    <div class="tree-line"></div>
+                                    <!-- Layer 4 -->
+                                    <div class="tree-node" style="font-size: 0.75rem; border-color: var(--muted-clay);">
+                                        Waste Reports</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 9: PAIN POINTS vs OPPORTUNITIES -->
+        <section id="pain-points">
+            <p class="cs-hero-outcome">IMPORTANT</p>
+            <div class="split-2"
+                style="background: var(--card-bg); padding: 4rem; border: 1px solid var(--border-color); border-radius: 8px;">
+                <div>
+                    <h4 style="color: #A855F7; margin-bottom: 2rem;">Pain Points</h4>
+                    <ul
+                        style="list-style: none; display: flex; flex-direction: column; gap: 1.5rem; color: var(--text-secondary);">
+                        <li>❌ Delayed and manual confirmation.</li>
+                        <li>❌ Significant daily food waste (25%).</li>
+                        <li>❌ Extremely low user engagement.</li>
+                    </ul>
+                </div>
+                <div style="border-left: 1px solid var(--border-color); padding-left: 4rem;">
+                    <h4 style="color: var(--dusty-olive); margin-bottom: 2rem;">Opportunities</h4>
+                    <ul
+                        style="list-style: none; display: flex; flex-direction: column; gap: 1.5rem; color: var(--deep-brown); font-weight: 500;">
+                        <li>✅ 2-second confirmation flow.</li>
+                        <li>✅ Integrated gamification loop.</li>
+                        <li>✅ Real-time prep-guidance dashboard.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 10: DESIGN STRATEGY -->
+        <section id="strategy">
+            <p class="cs-hero-outcome">DESIGN PILLARS</p>
+            <div class="pillar-grid" style="margin-top: 3rem;">
+                <div class="pillar-card">
+                    <h4>Speed</h4>
+                    <p>Efficiency over visual complexity.</p>
+                </div>
+                <div class="pillar-card">
+                    <h4>Behavior</h4>
+                    <p>Influencing choices through rewards.</p>
+                </div>
+                <div class="pillar-card">
+                    <h4>Visibility</h4>
+                    <p>Data transparency for admins.</p>
+                </div>
+                <div class="pillar-card">
+                    <h4>Clarity</h4>
+                    <p>Removing all operational friction.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 11: IDEATION -->
+        <section id="ideation">
+            <div style="max-width: 1000px; margin: 0 auto;">
+                <h2 class="section-title">Ideation & Selection</h2>
+                <p style="margin-top: 1.5rem;">We iterated through complex layouts & multi-step forms before
+                    selecting the "Fast Confirmation + Visual Feedback Loop" model. </p>
+                <p style="margin-top: 1rem; font-weight: 600; color: var(--warm-cocoa); margin-bottom: 3rem;">Rejected:
+                    'Manual Food
+                    Logging' was too time-consuming for students.</p>
+
+                <div class="img-container" style="background: white; padding: 2rem; border-radius: 12px;">
+                    <img src="image/Food/LOFI.png" alt="Lofi Wireframes" style="width: 100%; border-radius: 8px;">
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 12: SOLUTION -->
+        <section id="solution">
+            <p class="cs-hero-outcome">FINALLY READY...</p>
+            <h2 class="section-title" style="margin-bottom: 4rem;">The Behavior Change System</h2>
+            <div class="solution-gallery">
+                <div class="screen-container">
+                    <img src="image/Food/Home Screen.png" alt="Meal Selection">
+                    <h4 style="color: var(--deep-brown)">Meal Selection</h4>
+                </div>
+                <div class="screen-container">
+                    <img src="image/Food/Confirmation Screen.png" alt="Instant Action">
+                    <h4 style="color: var(--deep-brown)">Instant Action</h4>
+                </div>
+                <div class="screen-container">
+                    <img src="image/Food/Rating Screen.png" alt="Rating System">
+                    <h4 style="color: var(--deep-brown)">Rating System</h4>
+                </div>
+            </div>
+            <div class="solution-gallery"
+                style="grid-template-columns: 1fr 1fr; max-width: 800px; margin: 4rem auto 0 auto;">
+                <div class="screen-container">
+                    <img src="image/Food/Impact Screen.png" alt="Analytics">
+                    <h4 style="color: var(--deep-brown)">Analytics Dashboard</h4>
+                </div>
+                <div class="screen-container">
+                    <img src="image/Food/Notifications.png" alt="Notifications">
+                    <h4 style="color: var(--deep-brown)">Notification System</h4>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 14: TESTING -->
+        <section id="testing">
+            <div class="persona-card" style="background: var(--card-bg); border: 1px solid var(--border-color);">
+                <p class="cs-hero-outcome">VALIDATION RESULTS</p>
+                <div style="display: flex; justify-content: space-between; margin-top: 3rem;">
+                    <div>
+                        <h4 style="font-size: 2.5rem; color: var(--deep-brown);">+30%</h4>
+                        <p>Active Engagement</p>
+                    </div>
+                    <div>
+                        <h4 style="font-size: 2.5rem; color: var(--deep-brown);">+25%</h4>
+                        <p>Task Completion</p>
+                    </div>
+                    <div>
+                        <h4 style="font-size: 2.5rem; color: var(--deep-brown);">&lt;2.5s</h4>
+                        <p>Avg. Confirmation Time</p>
+                    </div>
+                </div>
+                <p
+                    style="margin-top: 3rem; color: var(--text-secondary); border-top: 1px solid var(--border-color); padding-top: 2rem;">
+                    <strong>Iteration:</strong> Unified the 'Confirm' and 'Menu' screens to eliminate an additional tap,
+                    following feedback from 5 stress-testers.
+                </p>
+            </div>
+        </section>
+
+        <!-- SECTION 15: IMPACT -->
+        <section id="impact">
+            <div class="impact-story">
+                <h2 class="section-title">Real-World Impact</h2>
+                <p
+                    style="font-family: var(--font-heading); font-size: 1.8rem; line-height: 1.4; margin: 3rem 0; color: var(--deep-brown);">
+                    “I no longer cook for the 'registered' number; I cook for the 'active' participants. It's changed
+                    our mess economy.”
+                    <br><small style="font-family: var(--font-body); font-size: 1rem; color: var(--warm-cocoa)">— Hostel
+                        Warden Perspective</small>
+                </p>
+                <div class="impact-metrics">
+                    <div class="metric">
+                        <h4>25%</h4>
+                        <p>Food Waste Reduction</p>
+                    </div>
+                    <div class="metric">
+                        <h4>30%</h4>
+                        <p>Engagement Boost</p>
+                    </div>
+                    <div class="metric">
+                        <h4>18%</h4>
+                        <p>Conversion Rate</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 17: CULTURAL INSIGHT -->
+        <section id="cultural" class="cultural-section">
+            <div class="cultural-symbol">अन्नं ब्रह्म</div>
+            <p
+                style="font-family: var(--font-heading); font-size: 1.5rem; max-width: 700px; margin: 0 auto; color: var(--text-primary);">
+                "Food is Divine." This ancient Indian philosophy influenced our emotional engagement design—turning a
+                functional utility into a respectful behavior loop.
+            </p>
+        </section>
+
+
+        <!-- SECTION 20: NEXT PROJECT CTA -->
+        <section style="text-align: right;">
+            <a href="school-platform.html" style="text-decoration: none;">
+                <h4 style="color: var(--muted-clay)">NEXT PROJECT</h4>
+                <h2
+                    style="color: var(--deep-brown); margin-top: 1rem; font-family: var(--font-heading); font-size: 2.5rem;">
+                    Improving student productivity through system design →</h2>
+            </a>
+        </section>
+    </div>
+
+    <script src="main.js"></script>
+    <script>
+        // Progress Highlighting & Reveal
+        const sections = document.querySelectorAll('section');
+        const navItems = document.querySelectorAll('.progress-item');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    const id = entry.target.getAttribute('id');
+                    navItems.forEach(item => {
+                        item.classList.remove('active');
+                        if (item.getAttribute('href') === `#${id}`) {
+                            item.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, { threshold: 0.2 });
+
+        sections.forEach(section => observer.observe(section));
+    </script>
+</body>
+
+</html>
