@@ -1,0 +1,4290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <title>Industrial Ethernet Communication - Case Study</title>
+    <link href="index.html" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&amp;family=Instrument+Serif:ital@0;1&amp;display=swap"
+        rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/animations.css" rel="stylesheet" />
+    <link href="css/responsive.css" rel="stylesheet" />
+    <style>
+        /* =========================================================
+   SECURELINK — MAIN UX COMPONENTS
+========================================================= */
+
+        .ux-component {
+            width: 100%;
+            background: var(--color-bg, #ffffff);
+            border: 1px solid var(--color-border, #e5e7eb);
+            border-radius: 12px;
+            padding: 20px;
+            color: var(--color-text, #172033);
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+        }
+
+        .ux-component-header,
+        .message-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .ux-component-header>div,
+        .message-device {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .ux-component-header span,
+        .message-header strong {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .ux-component-header small,
+        .message-device span {
+            color: var(--color-text-3, #718096);
+            font-size: 11px;
+        }
+
+        .ux-live-status,
+        .transfer-status,
+        .message-secure {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px !important;
+            font-weight: 600 !important;
+        }
+
+        .ux-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+
+        .ux-dot.green {
+            background: #10b981;
+        }
+
+        .ux-dot.amber {
+            background: #d97706;
+        }
+
+        .ux-dot.gray {
+            background: #94a3b8;
+        }
+
+        /* =========================================================
+   CONNECTION
+========================================================= */
+
+        .connection-component {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .connection-item {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 42px 1fr auto;
+            align-items: center;
+            gap: 13px;
+
+            padding: 13px;
+            border: 1px solid var(--color-border, #e5e7eb);
+            border-radius: 9px;
+
+            background: #fff;
+            text-align: left;
+            cursor: pointer;
+
+            transition:
+                border-color .2s ease,
+                background .2s ease,
+                transform .2s ease;
+        }
+
+        .connection-item:hover {
+            border-color: #b8c7dc;
+            transform: translateY(-1px);
+        }
+
+        .connection-item.active {
+            border-color: #10b981;
+            background: rgba(16, 185, 129, 0.045);
+        }
+
+        .connection-icon {
+            width: 40px;
+            height: 40px;
+            display: grid;
+            place-items: center;
+
+            border-radius: 50%;
+            background: #f1f5f9;
+
+            font-size: 18px;
+        }
+
+        .connection-info {
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .connection-info strong {
+            font-size: 13px;
+        }
+
+        .connection-info span {
+            font-size: 11px;
+            color: var(--color-text-3, #718096);
+        }
+
+        .connection-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+
+            font-size: 11px;
+            font-weight: 650;
+        }
+
+        .connection-status.connected {
+            color: #15803d;
+        }
+
+        .connection-status.pending {
+            color: #a16207;
+        }
+
+        .connection-status.disconnected {
+            color: #64748b;
+        }
+
+        .connection-feedback {
+            padding: 10px 12px;
+            margin-top: 4px;
+
+            background: #f8fafc;
+            border-radius: 7px;
+
+            color: var(--color-text-3, #64748b);
+            font-size: 11px;
+        }
+
+        /* =========================================================
+   ERROR / RECOVERY
+========================================================= */
+
+        .error-component {
+            min-height: 220px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            background: #fff;
+        }
+
+        .error-state-icon {
+            width: 44px;
+            height: 44px;
+
+            display: grid;
+            place-items: center;
+
+            margin-bottom: 12px;
+
+            border-radius: 50%;
+            background: #fff4f4;
+            color: #dc2626;
+
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .error-state-content {
+            max-width: 340px;
+        }
+
+        .error-state-content strong {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .error-state-content p {
+            margin: 0 0 16px;
+
+            color: var(--color-text-3, #718096);
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        /* =========================================================
+   BUTTONS
+========================================================= */
+
+        .ux-button {
+            border: 1px solid #1454c4;
+            background: #1454c4;
+            color: #fff;
+
+            padding: 8px 13px;
+            border-radius: 7px;
+
+            font-size: 11px;
+            font-weight: 650;
+
+            cursor: pointer;
+
+            transition: all .2s ease;
+        }
+
+        .ux-button:hover {
+            background: #0e46a8;
+            transform: translateY(-1px);
+        }
+
+        .ux-button.secondary {
+            background: #fff;
+            color: var(--color-text, #172033);
+            border-color: var(--color-border, #dfe5ee);
+        }
+
+        .ux-button.secondary:hover {
+            border-color: #aebbd0;
+        }
+
+        .ux-button.danger {
+            color: #dc2626;
+            background: #fff;
+            border-color: #f1cccc;
+        }
+
+        /* =========================================================
+   FILE TRANSFER
+========================================================= */
+
+        .transfer-component {
+            padding: 20px;
+        }
+
+        .transfer-component .ux-component-header {
+            margin-bottom: 14px;
+        }
+
+        .transfer-dropzone {
+            min-height: 145px;
+
+            border: 2px dashed #cbd5e1;
+            border-radius: 10px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            padding: 20px;
+
+            background: #fbfcfe;
+
+            transition: all .2s ease;
+        }
+
+        .transfer-dropzone.dragging {
+            border-color: #1454c4;
+            background: #f0f6ff;
+        }
+
+        .transfer-upload-icon {
+            font-size: 27px;
+            color: #1454c4;
+            margin-bottom: 7px;
+        }
+
+        .transfer-dropzone strong {
+            font-size: 13px;
+        }
+
+        .transfer-dropzone span {
+            margin: 5px 0 13px;
+
+            font-size: 11px;
+            color: var(--color-text-3, #718096);
+        }
+
+        .transfer-file {
+            display: grid;
+            grid-template-columns: 38px 1fr auto;
+            align-items: center;
+            gap: 11px;
+
+            padding: 13px 0;
+        }
+
+        .file-icon {
+            width: 38px;
+            height: 38px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 8px;
+
+            background: #edf4ff;
+            color: #1454c4;
+
+            font-size: 9px;
+            font-weight: 800;
+        }
+
+        .file-details {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .file-details strong {
+            font-size: 12px;
+        }
+
+        .file-details span {
+            color: var(--color-text-3, #718096);
+            font-size: 10px;
+        }
+
+        .transfer-progress {
+            height: 7px;
+
+            background: #e7edf5;
+            border-radius: 20px;
+
+            overflow: hidden;
+        }
+
+        .transfer-progress div {
+            width: 64%;
+            height: 100%;
+
+            background: #1454c4;
+
+            transition: width .3s ease;
+        }
+
+        .transfer-meta {
+            display: flex;
+            justify-content: space-between;
+
+            margin-top: 7px;
+
+            color: var(--color-text-3, #718096);
+            font-size: 10px;
+        }
+
+        .transfer-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 7px;
+            margin-top: 13px;
+        }
+
+        /* =========================================================
+   MESSAGE
+========================================================= */
+
+        .message-component {
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .message-header {
+            padding: 16px 18px;
+            margin: 0;
+
+            border-bottom: 1px solid var(--color-border, #e5e7eb);
+        }
+
+        .message-device {
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .message-thread {
+            min-height: 180px;
+
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            padding: 18px;
+
+            background: #fafbfd;
+        }
+
+        .message {
+            max-width: 75%;
+
+            padding: 10px 12px;
+
+            border-radius: 9px;
+
+            background: #f0f3f7;
+
+            color: var(--color-text, #172033);
+
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .message.sent {
+            align-self: flex-end;
+            background: #eaf2ff;
+        }
+
+        .message-label {
+            display: block;
+
+            margin-bottom: 3px;
+
+            font-size: 9px;
+            font-weight: 700;
+            color: #52627a;
+        }
+
+        .message-composer {
+            padding: 12px 14px;
+
+            border-top: 1px solid var(--color-border, #e5e7eb);
+        }
+
+        .message-composer textarea {
+            width: 100%;
+            min-height: 65px;
+
+            resize: vertical;
+
+            border: 1px solid var(--color-border, #dfe5ee);
+            border-radius: 8px;
+
+            padding: 10px;
+
+            outline: none;
+
+            font-size: 11px;
+            color: var(--color-text, #172033);
+
+            background: #fff;
+        }
+
+        .message-composer textarea:focus {
+            border-color: #1454c4;
+        }
+
+        .message-composer-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-top: 8px;
+        }
+
+        .message-composer-footer span {
+            color: var(--color-text-3, #718096);
+            font-size: 10px;
+        }
+
+        /* =========================================================
+   DEVICE
+========================================================= */
+
+        .device-component {
+            padding: 20px;
+        }
+
+        .device-refresh {
+            width: 30px;
+            height: 30px;
+
+            border: 1px solid var(--color-border, #dfe5ee);
+            border-radius: 7px;
+
+            background: #fff;
+
+            cursor: pointer;
+        }
+
+        .device-main {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+
+            padding: 14px;
+
+            border: 1px solid var(--color-border, #e5e7eb);
+            border-radius: 9px;
+        }
+
+        .device-avatar {
+            width: 44px;
+            height: 44px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 50%;
+            background: #f1f5f9;
+
+            font-size: 20px;
+        }
+
+        .device-info {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .device-info strong {
+            font-size: 14px;
+        }
+
+        .device-info>span {
+            color: var(--color-text-3, #718096);
+            font-size: 10px;
+        }
+
+        .device-badge {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            margin-top: 4px;
+
+            color: #15803d;
+            font-size: 10px;
+            font-weight: 650;
+        }
+
+        .device-details {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+
+            margin-top: 12px;
+
+            border: 1px solid var(--color-border, #e5e7eb);
+            border-radius: 9px;
+            overflow: hidden;
+        }
+
+        .device-details>div {
+            padding: 12px;
+
+            border-right: 1px solid var(--color-border, #e5e7eb);
+        }
+
+        .device-details>div:last-child {
+            border-right: 0;
+        }
+
+        .device-details span {
+            display: block;
+
+            margin-bottom: 5px;
+
+            color: var(--color-text-3, #718096);
+            font-size: 9px;
+        }
+
+        .device-details strong {
+            font-size: 11px;
+        }
+
+        .device-details .healthy {
+            color: #15803d;
+        }
+
+        .device-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 7px;
+
+            margin-top: 13px;
+        }
+
+        /* =========================================================
+   RESPONSIVE
+========================================================= */
+
+        @media (max-width: 700px) {
+
+            .connection-item {
+                grid-template-columns: 38px 1fr;
+            }
+
+            .connection-status {
+                grid-column: 2;
+            }
+
+            .device-details {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .device-details>div:nth-child(2) {
+                border-right: 0;
+            }
+
+            .device-details>div:nth-child(-n+2) {
+                border-bottom: 1px solid var(--color-border, #e5e7eb);
+            }
+
+            .device-actions {
+                flex-wrap: wrap;
+            }
+
+        }
+
+        /* =========================================
+   INFORMATION ARCHITECTURE
+   ========================================= */
+
+        .ia-header {
+            width: 100%;
+            text-align: center;
+        }
+
+        .ia-header .section-label,
+        .ia-header .section-title {
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+        /* =========================================
+   MAIN DIAGRAM
+   ========================================= */
+
+        .tree-diagram {
+            width: 100%;
+            max-width: 720px;
+
+            margin: 0 auto;
+
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            box-sizing: border-box;
+        }
+
+
+        /* =========================================
+   TREE NODE
+   ========================================= */
+
+        .tree-node {
+            width: 100%;
+
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            padding: 28px 32px;
+
+            box-sizing: border-box;
+
+            background: var(--color-surface);
+
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease;
+        }
+
+        .tree-node:hover {
+            transform: translateY(-2px);
+
+            border-color: var(--color-accent);
+        }
+
+
+        /* =========================================
+   NUMBER
+   ========================================= */
+
+        .tree-number {
+            width: 44px;
+            height: 44px;
+
+            flex: 0 0 44px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 14px;
+
+            border-radius: 50%;
+
+            background: var(--color-bg);
+
+            border: 1px solid var(--color-accent);
+
+            color: var(--color-accent);
+
+            font-size: 12px;
+            font-weight: 600;
+
+            letter-spacing: 0.06em;
+        }
+
+
+        /* =========================================
+   CONTENT
+   ========================================= */
+
+        .tree-content {
+            width: 100%;
+
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+
+            text-align: center;
+        }
+
+        .tree-node h3 {
+            margin: 0 0 7px;
+
+            font-family: var(--font-serif);
+
+            font-size: 24px;
+            line-height: 1.3;
+
+            text-align: center;
+        }
+
+        .tree-node p {
+            max-width: 500px;
+
+            margin: 0 auto;
+
+            color: var(--color-text-3);
+
+            font-size: 13px;
+            line-height: 1.6;
+
+            text-align: center;
+        }
+
+
+        /* =========================================
+   ARROW
+   ========================================= */
+
+        .tree-arrow {
+            height: 52px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: var(--color-accent);
+
+            font-size: 24px;
+            font-weight: 600;
+
+            opacity: 0.45;
+
+            text-align: center;
+        }
+
+
+        /* =========================================
+   FINAL NODE
+   ========================================= */
+
+        .tree-node--final {
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+
+        /* =========================================
+   TABLET
+   ========================================= */
+
+        @media (max-width: 768px) {
+
+            .tree-diagram {
+                width: 100%;
+                max-width: 620px;
+
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .tree-node {
+                padding: 24px 22px;
+            }
+
+            .tree-node h3 {
+                font-size: 21px;
+            }
+
+            .tree-node p {
+                max-width: 440px;
+            }
+
+        }
+
+
+        /* =========================================
+   MOBILE
+   ========================================= */
+
+        @media (max-width: 600px) {
+
+            .ia-header {
+                text-align: center;
+            }
+
+            .ia-header .section-label,
+            .ia-header .section-title {
+                text-align: center;
+            }
+
+
+            .tree-diagram {
+                width: 100%;
+                max-width: 100%;
+
+                margin: 0 auto;
+
+                padding: 0 4px;
+            }
+
+
+            .tree-node {
+                width: 100%;
+
+                padding: 22px 18px;
+
+                border-radius: 14px;
+            }
+
+
+            .tree-number {
+                width: 40px;
+                height: 40px;
+
+                flex-basis: 40px;
+
+                margin-bottom: 12px;
+            }
+
+
+            .tree-node h3 {
+                font-size: 19px;
+
+                line-height: 1.35;
+
+                text-align: center;
+            }
+
+
+            .tree-node p {
+                width: 100%;
+                max-width: 320px;
+
+                font-size: 12px;
+
+                line-height: 1.55;
+
+                text-align: center;
+            }
+
+
+            .tree-arrow {
+                height: 38px;
+
+                font-size: 20px;
+            }
+
+        }
+
+
+        /* =========================================
+   SMALL MOBILE
+   ========================================= */
+
+        @media (max-width: 380px) {
+
+            .tree-diagram {
+                padding: 0;
+            }
+
+
+            .tree-node {
+                padding: 19px 15px;
+            }
+
+
+            .tree-number {
+                width: 36px;
+                height: 36px;
+
+                flex-basis: 36px;
+
+                font-size: 11px;
+            }
+
+
+            .tree-node h3 {
+                font-size: 17px;
+            }
+
+
+            .tree-node p {
+                max-width: 280px;
+
+                font-size: 12px;
+            }
+
+
+            .tree-arrow {
+                height: 34px;
+
+                font-size: 18px;
+            }
+
+        }
+
+        .target-audience-header {
+            width: 100%;
+            max-width: 760px;
+            margin: 0 auto 56px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .target-audience-header .section-label {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .target-audience-header .section-title {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
+
+        .workflow-wrapper {
+            width: 100%;
+            box-sizing: border-box;
+
+            background: var(--color-surface);
+
+            padding: var(--spacing-xl);
+
+            border-radius: var(--radius-lg);
+
+            overflow: hidden;
+        }
+
+
+
+        .workflow-scroll {
+            display: flex;
+            align-items: center;
+
+            width: 100%;
+
+            box-sizing: border-box;
+
+            overflow-x: auto;
+            overflow-y: hidden;
+
+            scroll-behavior: smooth;
+
+            scrollbar-width: thin;
+            scrollbar-color: var(--color-accent) transparent;
+
+            -webkit-overflow-scrolling: touch;
+
+            padding: 16px 4px 20px;
+
+            overscroll-behavior-x: contain;
+        }
+
+
+
+        .workflow-scroll::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .workflow-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .workflow-scroll::-webkit-scrollbar-thumb {
+            background: var(--color-accent);
+            border-radius: 20px;
+        }
+
+
+
+
+        .workflow-step {
+            position: relative;
+
+            flex: 0 0 150px;
+
+            min-width: 150px;
+
+            text-align: center;
+
+            box-sizing: border-box;
+        }
+
+
+        .workflow-number {
+            width: 48px;
+            height: 48px;
+
+            margin: 0 auto 16px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: var(--color-bg);
+
+            border: 1px solid var(--color-accent);
+
+            border-radius: 50%;
+
+            color: var(--color-accent);
+
+            font-size: 15px;
+            font-weight: 600;
+
+            box-sizing: border-box;
+        }
+
+
+        .workflow-step b {
+            display: block;
+
+            margin-bottom: 6px;
+
+            font-size: 15px;
+            line-height: 1.4;
+        }
+
+
+        .workflow-step span:not(.workflow-pain-dot) {
+            display: block;
+
+            color: var(--color-text-3);
+
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+
+        /* =========================================
+   PAIN POINT
+   ========================================= */
+
+        .workflow-step--pain .workflow-number {
+            border-color: #ef4444;
+
+            color: #ef4444;
+        }
+
+
+        .workflow-step--pain span:not(.workflow-pain-dot) {
+            color: #ef4444;
+        }
+
+
+        .workflow-pain-dot {
+            position: absolute;
+
+            top: -4px;
+            right: 24px;
+
+            width: 10px;
+            height: 10px;
+
+            background: #ef4444;
+
+            border-radius: 50%;
+
+            z-index: 2;
+        }
+
+
+        /* =========================================
+   ARROW
+   ========================================= */
+
+        .workflow-arrow {
+            flex: 0 0 auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 56px;
+
+            color: var(--color-accent);
+
+            font-size: 24px;
+            font-weight: 600;
+
+            opacity: 0.4;
+
+            user-select: none;
+        }
+
+
+        /* =========================================
+   TABLET
+   ========================================= */
+
+        @media (max-width: 900px) {
+
+            .workflow-wrapper {
+                padding: 24px;
+            }
+
+            .workflow-scroll {
+                gap: 0;
+
+                overflow-x: auto;
+
+                scroll-snap-type: x proximity;
+            }
+
+            .workflow-step {
+                scroll-snap-align: start;
+            }
+        }
+
+
+        /* =========================================
+   MOBILE
+   ========================================= */
+
+        @media (max-width: 600px) {
+
+            .workflow-wrapper {
+                width: 100%;
+
+                padding: 18px;
+
+                border-radius: 16px;
+            }
+
+
+            .workflow-scroll {
+                width: calc(100% + 36px);
+
+                margin-left: -18px;
+
+                padding: 18px 18px 20px;
+
+                overflow-x: auto;
+
+                scroll-snap-type: x mandatory;
+
+                scrollbar-width: none;
+
+                touch-action: pan-x;
+            }
+
+
+            .workflow-scroll::-webkit-scrollbar {
+                display: none;
+            }
+
+
+            .workflow-step {
+                flex: 0 0 150px;
+
+                width: 150px;
+                min-width: 150px;
+
+                scroll-snap-align: center;
+            }
+
+
+            .workflow-arrow {
+                width: 44px;
+
+                font-size: 20px;
+            }
+
+
+            .workflow-number {
+                width: 44px;
+                height: 44px;
+
+                margin-bottom: 12px;
+            }
+
+
+            .workflow-step b {
+                font-size: 14px;
+            }
+
+
+            .workflow-step span:not(.workflow-pain-dot) {
+                font-size: 12px;
+
+                line-height: 1.5;
+            }
+
+
+            .workflow-pain-dot {
+                top: -5px;
+                right: 25px;
+
+                width: 9px;
+                height: 9px;
+            }
+        }
+
+
+        /* =========================================
+   SMALL MOBILE
+   ========================================= */
+
+        @media (max-width: 380px) {
+
+            .workflow-wrapper {
+                padding: 14px;
+            }
+
+
+            .workflow-scroll {
+                width: calc(100% + 28px);
+
+                margin-left: -14px;
+
+                padding-left: 14px;
+                padding-right: 14px;
+            }
+
+
+            .workflow-step {
+                flex-basis: 140px;
+                width: 140px;
+                min-width: 140px;
+            }
+
+
+            .workflow-arrow {
+                width: 36px;
+
+                font-size: 18px;
+            }
+        }
+
+        /* =========================================
+   PRIMARY PERSONA
+   ========================================= */
+
+        .target-persona {
+            display: grid;
+            grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
+            gap: 48px;
+            align-items: center;
+
+            width: 100%;
+            box-sizing: border-box;
+
+            padding: 32px;
+            margin-bottom: 24px;
+
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+
+            background: var(--color-bg-2);
+        }
+
+        .target-persona__user {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+
+            min-width: 0;
+        }
+
+        .target-persona__image {
+            width: 64px;
+            height: 64px;
+
+            flex: 0 0 64px;
+
+            border-radius: 50%;
+            object-fit: cover;
+
+            border: 1px solid var(--color-border);
+        }
+
+        .target-persona__eyebrow {
+            color: var(--color-text-3);
+
+            font-size: 12px;
+            line-height: 1.4;
+
+            margin-bottom: 4px;
+        }
+
+        .target-persona__name {
+            margin: 0;
+
+            font-size: 22px;
+            line-height: 1.25;
+        }
+
+        .target-persona__environment {
+            color: var(--color-text-3);
+
+            font-size: 13px;
+            line-height: 1.5;
+
+            margin-top: 4px;
+        }
+
+        .target-persona__quote {
+            min-width: 0;
+
+            color: var(--color-text-2);
+
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+
+        /* =========================================
+   NEED / PAIN / GOAL
+   ========================================= */
+
+        .target-needs {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+
+            gap: 20px;
+
+            width: 100%;
+        }
+
+        .target-need {
+            min-width: 0;
+            box-sizing: border-box;
+
+            padding: 28px;
+
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+
+            background: var(--color-bg-2);
+        }
+
+        .target-need__number {
+            color: var(--color-text-3);
+
+            font-size: 12px;
+            font-weight: 600;
+
+            letter-spacing: 0.08em;
+
+            margin-bottom: 18px;
+        }
+
+        .target-need__label {
+            color: var(--color-text-3);
+
+            font-size: 11px;
+            font-weight: 600;
+
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+
+            margin-bottom: 10px;
+        }
+
+        .target-need h4 {
+            margin: 0 0 10px;
+
+            font-size: 18px;
+            line-height: 1.35;
+        }
+
+        .target-need p {
+            margin: 0;
+
+            color: var(--color-text-3);
+
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+
+        /* =========================================
+   TABLET
+   ========================================= */
+
+        @media (max-width: 900px) {
+
+            .target-persona {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .target-needs {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .target-need:last-child {
+                grid-column: 1 / -1;
+            }
+        }
+
+
+        /* =========================================
+   MOBILE
+   ========================================= */
+
+        @media (max-width: 600px) {
+
+            .target-audience-header {
+                max-width: 100%;
+                margin-bottom: 32px;
+                text-align: center;
+            }
+
+            .target-audience-header .section-label {
+                justify-content: center;
+            }
+
+            .target-audience-header .section-title {
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+
+            /* Persona */
+
+            .target-persona {
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+
+                gap: 20px;
+
+                padding: 22px;
+
+                border-radius: 16px;
+            }
+
+            .target-persona__image {
+                width: 52px;
+                height: 52px;
+
+                flex-basis: 52px;
+            }
+
+            .target-persona__name {
+                font-size: 19px;
+            }
+
+            .target-persona__environment {
+                font-size: 12px;
+            }
+
+            .target-persona__quote {
+                font-size: 14px;
+                line-height: 1.65;
+            }
+
+
+            /* Need / Pain / Goal */
+
+            .target-needs {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .target-need:last-child {
+                grid-column: auto;
+            }
+
+            .target-need {
+                padding: 22px;
+                border-radius: 14px;
+            }
+
+            .target-need h4 {
+                font-size: 17px;
+            }
+        }
+
+        ```css id="m8z2pk"
+        /* =========================================
+   RESEARCH INSIGHTS
+   ========================================= */
+
+        .insight-cards {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
+
+            gap: 20px;
+
+            width: 100%;
+        }
+
+
+        .insight-card {
+            min-width: 0;
+
+            box-sizing: border-box;
+
+            padding: 28px;
+
+            background: var(--color-bg);
+
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease;
+        }
+
+
+        .insight-card:hover {
+            transform: translateY(-3px);
+
+            border-color: var(--color-accent);
+        }
+
+
+        .insight-number {
+            margin-bottom: 22px;
+
+            color: var(--color-accent);
+
+            font-size: 12px;
+            font-weight: 600;
+
+            letter-spacing: 0.08em;
+        }
+
+
+        .insight-card h3 {
+            margin: 0 0 8px;
+
+            font-size: 18px;
+            line-height: 1.35;
+        }
+
+
+        .insight-card p {
+            margin: 0;
+
+            color: var(--color-text-2);
+
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+
+        /* =========================================
+   TABLET
+   ========================================= */
+
+        @media (max-width: 1000px) {
+
+            .insight-cards {
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+            }
+
+        }
+
+
+        /* =========================================
+   MOBILE
+   ========================================= */
+
+        @media (max-width: 600px) {
+
+            .insight-cards {
+                grid-template-columns: 1fr;
+
+                gap: 12px;
+            }
+
+
+            .insight-card {
+                padding: 22px;
+
+                border-radius: 14px;
+            }
+
+
+            .insight-number {
+                margin-bottom: 16px;
+            }
+
+
+            .insight-card h3 {
+                font-size: 17px;
+            }
+
+
+            .insight-card p {
+                font-size: 13px;
+
+                line-height: 1.6;
+            }
+
+        }
+
+
+        /* =========================================
+   SMALL MOBILE
+   ========================================= */
+
+        @media (max-width: 380px) {
+
+            .insight-card {
+                padding: 18px;
+            }
+
+        }
+
+
+        /* =========================================
+   SMALL MOBILE
+   ========================================= */
+
+        @media (max-width: 380px) {
+
+            .target-persona {
+                padding: 18px;
+            }
+
+            .target-persona__user {
+                gap: 12px;
+            }
+
+            .target-persona__image {
+                width: 46px;
+                height: 46px;
+
+                flex-basis: 46px;
+            }
+
+            .target-persona__name {
+                font-size: 17px;
+            }
+
+            .target-persona__quote {
+                font-size: 13px;
+            }
+
+            .target-need {
+                padding: 18px;
+            }
+        }
+
+        .page-header {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            padding-top: var(--nav-height);
+            position: relative;
+        }
+
+        .nda-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #d1fae5;
+            border: 1px solid #34d399;
+            padding: 6px 16px;
+            border-radius: var(--radius-full);
+            font-size: var(--fs-xs);
+            font-weight: var(--fw-semibold);
+            color: #065f46;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .nda-badge svg {
+            color: #059669;
+        }
+
+        .split-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-2xl);
+            align-items: center;
+        }
+
+        .split-grid-lg {
+            gap: var(--spacing-3xl);
+        }
+
+        .case-mockup {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+            aspect-ratio: 16/10;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mockup-bar {
+            height: 32px;
+            background: var(--color-bg);
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            gap: 6px;
+        }
+
+        .mockup-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--color-border);
+        }
+
+        .mockup-content {
+            padding: 32px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .mock-box {
+            background: var(--color-bg);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: var(--radius-sm);
+        }
+
+        .snapshot-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: var(--spacing-md);
+        }
+
+        .snapshot-item {
+            background: var(--color-surface);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+        }
+
+        .snap-lbl {
+            font-size: 12px;
+            color: var(--color-text-3);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 4px;
+        }
+
+        .snap-val {
+            font-size: var(--fs-body);
+            font-weight: var(--fw-semibold);
+        }
+
+        .problem-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 16px;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .problem-card:last-child {
+            border-bottom: none;
+        }
+
+        .p-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+
+            color: var(--color-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .flow-diagram {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: var(--spacing-xl);
+            padding: var(--spacing-xl);
+            background: var(--color-surface);
+            border-radius: var(--radius-lg);
+            position: relative;
+        }
+
+        .flow-node {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            padding: 16px 24px;
+            background: var(--color-bg);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--color-border);
+        }
+
+        .flow-arrow {
+            color: var(--color-accent);
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        .goal-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .goal-card {
+            padding: var(--spacing-lg);
+            background: var(--color-surface);
+            border-radius: var(--radius-lg);
+            transition: transform var(--transition-fast);
+            border: 1px solid transparent;
+        }
+
+        .goal-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--color-border);
+        }
+
+        .tree-diagram {
+            background: var(--color-surface);
+            padding: var(--spacing-3xl) var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-md);
+            text-align: center;
+        }
+
+        .insight-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-lg);
+        }
+
+        .insight-card {
+            padding: var(--spacing-lg);
+            background: var(--color-bg);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+        }
+
+        .strategy-cards {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+        }
+
+        .strategy-card {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr auto 1fr;
+            align-items: center;
+            gap: var(--spacing-md);
+            background: var(--color-surface);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            text-align: center;
+        }
+
+        .b-a-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xl);
+        }
+
+        .b-a-col {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+        }
+
+        .annotated-ui {
+            position: relative;
+            margin-top: var(--spacing-lg);
+        }
+
+        .hotspot {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            background: var(--color-accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            outline: 4px solid var(--color-bg);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .hotspot:hover {
+            transform: scale(1.1);
+        }
+
+        .h-note {
+            position: absolute;
+            background: var(--color-text);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+        }
+
+        .hotspot:hover .h-note {
+            opacity: 1;
+        }
+
+        .p1-hero-mac {
+            margin-top: 64px;
+            width: 100%;
+            max-width: 1000px;
+            aspect-ratio: 16/10;
+            height: auto;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-bottom: none;
+            border-top-left-radius: 24px;
+            border-top-right-radius: 24px;
+            box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 3;
+            transform: translateY(20px);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .metric-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-md);
+        }
+
+        .metric-card {
+            background: var(--color-surface);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 20px;
+            font-weight: var(--fw-medium);
+            min-height: 180px;
+        }
+
+        .takeaways {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-lg);
+        }
+
+        .takeaway-card {
+            padding: var(--spacing-xl);
+            background: var(--color-bg);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+        }
+
+        .nav-next {
+            text-align: center;
+            padding: var(--spacing-3xl) 0;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .ui-gallery {
+            display: flex;
+            gap: 24px;
+            overflow-x: auto;
+            padding-bottom: 24px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: var(--color-accent) var(--color-surface);
+            margin-top: var(--spacing-xl);
+        }
+
+        .ui-gallery::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .ui-gallery::-webkit-scrollbar-track {
+            background: var(--color-surface);
+            border-radius: 4px;
+        }
+
+        .ui-gallery::-webkit-scrollbar-thumb {
+            background: var(--color-accent);
+            border-radius: 4px;
+        }
+
+        .ui-gallery-item {
+            flex: 0 0 85%;
+
+            scroll-snap-align: center;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            background: var(--color-surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-serif);
+            font-size: 24px;
+            color: var(--color-text-3);
+            border: 5px solid black;
+        }
+
+        .workflow-scroll {
+            display: flex;
+            justify-content: center;
+            flex-wrap: nowrap;
+            align-items: center;
+            gap: 0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            padding-bottom: 8px;
+        }
+
+        .workflow-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .workflow-step {
+            flex: 0 0 auto;
+            scroll-snap-align: center;
+        }
+
+        .b-a-scroll {
+            display: flex;
+            align-items: stretch;
+            gap: 0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+        }
+
+        .b-a-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .b-a-arrow {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 12px;
+            font-size: 28px;
+            color: var(--color-accent);
+            font-weight: bold;
+        }
+
+        .b-a-panel {
+            flex: 0 0 min(300px, 80vw);
+            scroll-snap-align: center;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: auto auto;
+            gap: var(--spacing-md);
+        }
+
+        .bento-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .bento-card--large {
+            grid-column: span 2;
+            grid-row: span 2;
+            background: var(--color-bg);
+        }
+
+        .bento-card--tall {
+            grid-row: span 2;
+        }
+
+        .bento-card--wide {
+            grid-column: span 2;
+        }
+
+
+        /* =========================================
+   SECURELINK HERO SCREEN SHOWCASE
+   ========================================= */
+
+        .securelink-hero-showcase {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+
+        /* =========================================
+   HORIZONTAL SLIDER
+   ========================================= */
+
+        .securelink-hero-track {
+            display: flex;
+
+            width: 500%;
+
+            animation: securelinkScreenShowcase 9s infinite cubic-bezier(0.65, 0, 0.35, 1);
+
+            will-change: transform;
+        }
+
+
+        /* =========================================
+   ONE SCREEN AT A TIME
+   ========================================= */
+
+        .securelink-hero-slide {
+            width: 20%;
+            min-width: 20%;
+
+            flex: 0 0 20%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            box-sizing: border-box;
+        }
+
+
+        /* =========================================
+   SCREEN IMAGE
+   ========================================= */
+
+        .securelink-hero-slide img {
+            display: block;
+
+            width: 100%;
+            height: auto;
+
+            object-fit: contain;
+
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+
+        /* =========================================
+   HORIZONTAL AUTO MOVEMENT
+   ========================================= */
+
+        @keyframes securelinkScreenShowcase {
+
+            /* Screen 1 */
+            0% {
+                transform: translateX(0%);
+            }
+
+            16% {
+                transform: translateX(0%);
+            }
+
+
+            /* Screen 2 */
+            20% {
+                transform: translateX(-20%);
+            }
+
+            36% {
+                transform: translateX(-20%);
+            }
+
+
+            /* Screen 3 */
+            40% {
+                transform: translateX(-40%);
+            }
+
+            56% {
+                transform: translateX(-40%);
+            }
+
+
+            /* Screen 4 */
+            60% {
+                transform: translateX(-60%);
+            }
+
+            76% {
+                transform: translateX(-60%);
+            }
+
+
+            /* Screen 5 */
+            80% {
+                transform: translateX(-80%);
+            }
+
+            96% {
+                transform: translateX(-80%);
+            }
+
+
+            /* Restart */
+            100% {
+                transform: translateX(0%);
+            }
+        }
+
+
+        /* =========================================
+   TABLET
+   ========================================= */
+
+        @media (max-width: 900px) {
+
+            .securelink-hero-track {
+                animation-duration: 8s;
+            }
+
+        }
+
+
+        /* =========================================
+   MOBILE
+   ========================================= */
+
+        @media (max-width: 600px) {
+
+            .securelink-hero-showcase {
+                width: 100%;
+                overflow: hidden;
+            }
+
+            .securelink-hero-track {
+                animation-duration: 7s;
+            }
+
+            .securelink-hero-slide img {
+                width: 100%;
+                height: auto;
+            }
+
+        }
+
+
+        /* =========================================
+   SMALL MOBILE
+   ========================================= */
+
+        @media (max-width: 380px) {
+
+            .securelink-hero-track {
+                animation-duration: 7s;
+            }
+
+        }
+
+
+        /* =========================================
+   ACCESSIBILITY
+   ========================================= */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .securelink-hero-track {
+                animation: none;
+                transform: translateX(0);
+            }
+
+        }
+
+
+        @media (max-width: 900px) {
+
+            .split-grid,
+            .insight-cards,
+            .metric-cards,
+            .takeaways,
+            .snapshot-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .flow-diagram {
+                flex-direction: column;
+                gap: var(--spacing-sm);
+            }
+
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+
+            .strategy-card {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .strategy-card .flow-arrow {
+                display: none;
+            }
+        }
+    </style>
+    <style>
+        @media (max-width: 900px) {
+            .workflow-scroll {
+                flex-wrap: nowrap !important;
+                justify-content: flex-start !important;
+                overflow-x: auto !important;
+                padding-bottom: 24px !important;
+                scroll-padding: 0 16px;
+                scroll-snap-type: x mandatory;
+                width: 100vw;
+                position: relative;
+                left: 50%;
+                right: 50%;
+                margin-left: -50vw;
+                margin-right: -50vw;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .workflow-step {
+                min-width: 200px !important;
+                scroll-snap-align: center;
+            }
+
+            .nav {
+                z-index: 998 !important;
+            }
+
+            .mobile-menu {
+                z-index: 1005 !important;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .hide-mobile {
+                display: none !important;
+            }
+
+
+            .bento-grid,
+            .ds-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bento-card--large,
+            .bento-card--tall,
+            .bento-card--wide {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+
+            .p1-meta-strip {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .v-timeline {
+                padding-left: 0;
+            }
+
+            .v-timeline::before {
+                display: none;
+            }
+
+            .v-step-dot {
+                display: none;
+            }
+
+            .b-a-grid {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+
+            /* Why It Mattered: stacked */
+            .flow-diagram {
+                flex-direction: column;
+                gap: 16px;
+                padding: var(--spacing-md);
+            }
+
+            .flow-arrow {
+                transform: rotate(90deg);
+                margin: 8px 0;
+            }
+
+            /* Strategy Cards horizontally scrollable */
+            .strategy-cards {
+                flex-direction: row;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                padding-bottom: 16px;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: thin;
+            }
+
+            .strategy-card {
+                min-width: 90%;
+                scroll-snap-align: center;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            /* Research Insights stacked */
+            .insight-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="nav" id="navbar" role="banner">
+        <div class="nav__container">
+            <a aria-label="Rahul Nalte - Home" class="nav__logo" href="index.html">
+                <svg class="mandala-icon" fill="none" height="36" stroke="var(--color-accent)" stroke-width="1.2"
+                    viewbox="0 0 24 24" width="36">
+                    <circle cx="12" cy="12" r="10" stroke-dasharray="2 3"></circle>
+                    <path d="M12 2 L12 22 M2 12 L22 12"></path>
+                    <path d="M4.93 4.93 L19.07 19.07 M4.93 19.07 L19.07 4.93"></path>
+                    <circle cx="12" cy="12" fill="var(--color-accent)" r="3"></circle>
+                </svg>
+                <span class="nav__logo-text">Rahul Nalte</span>
+            </a>
+            <nav aria-label="Main navigation" class="nav__links">
+                <a class="nav__link" href="index.html#work">Experience</a>
+                <a class="nav__link" href="index.html#contact">Connect</a>
+            </nav>
+            <div style="display: flex; align-items: center; gap: var(--spacing-sm);">
+                <a class="nav__link nav__link--cta" href="./Resume/Rahul_Nalte_UI_UX_Resume_2026.pdf" download="Rahul_Nalte_UI_UX_Resume_2026.pdf"
+                    style="background: black; color: white !important;" target="_blank">Resume</a>
+                <button aria-controls="mobileMenu" aria-expanded="false" aria-label="Toggle mobile menu"
+                    class="nav__toggle" id="navToggle">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div aria-hidden="true" aria-label="Mobile navigation" aria-modal="true" class="mobile-menu" id="mobileMenu"
+            role="dialog">
+            <nav class="mobile-menu__links">
+                <a class="mobile-menu__link" href="index.html#work">Experience</a>
+                <a class="mobile-menu__link" href="index.html#contact">Connect</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+
+        <!-- 1. HERO -->
+        <section class="page-header container hero-z">
+            <div class="hero-z__container split-grid split-grid-lg">
+
+                <div class="reveal-left">
+
+                    <div
+                        style="display:inline-flex; align-items:center; gap:8px; padding:6px 16px; background:rgba(16,185,129,0.1); color:#10b981; border-radius:24px; font-size:12px; font-weight:600; margin-bottom:24px; border: 1px solid rgba(16,185,129,0.2);">
+
+                        <svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"
+                            width="14">
+
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+
+                        </svg>
+
+                        Protected Under NDA
+
+                    </div>
+
+
+                    <h1 class="section-title">
+                        SecureLink
+                    </h1>
+
+
+                    <p class="section-subtitle" style="margin: 0; margin-bottom: var(--spacing-lg);">
+
+                        Redesigning a cross-platform communication system for secure
+                        defence operations, enabling reliable offline data exchange
+                        between Windows and RHEL systems while improving usability,
+                        visibility, and workflow efficiency.
+
+                    </p>
+
+
+                    <a class="btn btn--primary" data-magnetic="" href="project1detail.html">
+
+                        View Detailed Case Study →
+
+                    </a>
+
+                </div>
+
+
+                <div>
+
+                    <!-- Abstract Wide UI Representation -->
+
+                    <div class="securelink-hero-showcase">
+
+                        <div class="securelink-hero-track">
+
+                            <!-- SCREEN 1 -->
+                            <div class="securelink-hero-slide">
+                                <img src="./Image/Project1/HIFI/1 Dashboard.png" alt="SecureLink Dashboard" />
+                            </div>
+
+
+                            <!-- SCREEN 2 -->
+                            <div class="securelink-hero-slide">
+                                <img src="./Image/Project1/HIFI/2 Connected Device.png"
+                                    alt="SecureLink Connected Device" />
+                            </div>
+
+
+                            <!-- SCREEN 3 -->
+                            <div class="securelink-hero-slide">
+                                <img src="./Image/Project1/HIFI/3 Message Screen.png" alt="SecureLink Message Screen" />
+                            </div>
+
+
+                            <!-- SCREEN 4 -->
+                            <div class="securelink-hero-slide">
+                                <img src="./Image/Project1/HIFI/4 File Exchange.png" alt="SecureLink File Exchange" />
+                            </div>
+
+
+                            <!-- SCREEN 5 -->
+                            <div class="securelink-hero-slide">
+                                <img src="./Image/Project1/HIFI/5 Activity.png" alt="SecureLink Activity" />
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- 2.Notices-->
+        <section class="section">
+            <div class="container" style="
+        width:100%;
+        box-sizing:border-box;
+        padding:16px 20px;
+        background:rgba(16,185,129,0.06);
+        border:1px solid rgba(16,185,129,0.15);
+        border-radius:12px;
+        color:var(--text-secondary);
+        font-size:13px;
+        line-height:1.6;
+    ">
+
+                <div style="
+            display:flex;
+            align-items:flex-start;
+            gap:10px;
+            width:100%;
+        ">
+
+                    <!-- Secure Icon -->
+                    <svg fill="none" height="18" stroke="#10b981" stroke-width="2" viewBox="0 0 24 24" width="18"
+                        style="flex:0 0 18px; margin-top:2px;">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        <path d="m9 12 2 2 4-4"></path>
+                    </svg>
+
+                    <!-- Content -->
+                    <div style="min-width:0; flex:1;">
+
+                        <strong style="color:var(--text-primary);">
+                            Confidentiality Note
+                        </strong>
+
+                        <p style="margin:6px 0 0;">
+                            This case study omits sensitive product, operational, technical,
+                            deployment details.
+                        </p>
+
+                        <p style="margin:4px 0 0;">
+                            Visuals and descriptions are presented at a high level to protect
+                            confidential project information.
+                        </p>
+
+                        <p style="margin:4px 0 0;">
+                            Where project evidence was unavailable, assumptions and qualitative
+                            observations are clearly identified.
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- 3. QUICK SNAPSHOT -->
+        <section class="section section--alt" id="snapshot">
+            <div class="container reveal-up">
+                <div class="psil-grid">
+                    <div class="psil-item">
+                        <div class="psil-lbl">Problem</div>
+                        <div class="psil-val">Cross-platform made offline data exchange difficult and
+                            unclear.</div>
+                    </div>
+
+                    <div class="psil-item">
+                        <div class="psil-lbl">Solution</div>
+                        <div class="psil-val">Designed a guided communication experience with clear
+                            status.</div>
+                    </div>
+
+                    <div class="psil-item">
+                        <div class="psil-lbl">Impact</div>
+                        <div class="psil-val">Improved visibility workflow efficiency, and transfer
+                            confidence.</div>
+                    </div>
+
+                    <div class="psil-item">
+                        <div class="psil-lbl">Learning</div>
+                        <div class="psil-val">Clear workflows build confidence when technical complexity.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- 4. THE CHALLENGE -->
+        <section class="section">
+            <div class="container reveal-up">
+
+                <div class="section-intro" style="max-width:760px; margin-bottom:48px;">
+                    <div class="psil-lbl" style="margin-bottom:12px;">The Challenge</div>
+                    <h2 class="section-title">
+                        Making complex cross-platform communication easier to use.
+                    </h2>
+                </div>
+
+                <div style="max-width:900px;">
+
+                    <div style="
+                    display:grid;
+                    grid-template-columns:64px minmax(0, 1fr);
+                    gap:20px;
+                    align-items:start;
+                    padding:24px 0;
+                    border-top:1px solid var(--border-color);
+                ">
+
+                        <div class="p-icon">01</div>
+
+                        <div>
+                            <h3 style="margin:0 0 8px;">
+                                Complex Setup
+                            </h3>
+                            <p style="margin:0;">
+                                Technical configuration made starting a transfer
+                                more difficult than necessary.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div style="
+                    display:grid;
+                    grid-template-columns:64px minmax(0, 1fr);
+                    gap:20px;
+                    align-items:start;
+                    padding:24px 0;
+                    border-top:1px solid var(--border-color);
+                ">
+
+                        <div class="p-icon">02</div>
+
+                        <div>
+                            <h3 style="margin:0 0 8px;">
+                                Limited Visibility
+                            </h3>
+                            <p style="margin:0;">
+                                Users had limited visibility into connection,
+                                transfer, and system status.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div style="
+                    display:grid;
+                    grid-template-columns:64px minmax(0, 1fr);
+                    gap:20px;
+                    align-items:start;
+                    padding:24px 0;
+                    border-top:1px solid var(--border-color);
+                    border-bottom:1px solid var(--border-color);
+                ">
+
+                        <div class="p-icon">03</div>
+
+                        <div>
+                            <h3 style="margin:0 0 8px;">
+                                Unclear Recovery
+                            </h3>
+                            <p style="margin:0;">
+                                Technical errors did not clearly communicate
+                                what happened or what to do next.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- 5. WHY IT MATTERED -->
+        <section class="section section--alt">
+            <div class="container reveal-up">
+                <div class="section-header">
+                    <div class="section-label">Impact</div>
+                    <h2 class="section-title">Why it mattered</h2>
+                </div>
+
+                <div class="flow-diagram">
+                    <div class="flow-node">
+                        Cross-Platform Complexity
+                    </div>
+
+                    <div class="flow-arrow">→</div>
+
+                    <div class="flow-node">
+                        Difficult Data Exchange
+                    </div>
+
+                    <div class="flow-arrow">→</div>
+
+                    <div class="flow-node">
+                        Limited Status Visibility
+                    </div>
+
+                    <div class="flow-arrow">→</div>
+
+                    <div class="flow-node">
+                        Slower Engineering Workflows
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- 6. TARGET AUDIENCE -->
+        <section class="section">
+            <div class="container reveal-up">
+
+                <!-- Section Header -->
+                <div class="target-audience-header">
+
+                    <div class="section-label">
+                        Target Audience
+                    </div>
+
+                    <h2 class="section-title">
+                        Designing for users who manage secure data exchange.
+                    </h2>
+
+                </div>
+
+
+                <!-- Primary Persona -->
+                <div class="target-persona">
+
+                    <div class="target-persona__user">
+
+                        <img src="./Image/Profile/Project3User.jpg" alt="System Operator Persona"
+                            class="target-persona__image">
+
+                        <div>
+                            <div class="target-persona__eyebrow">
+                                Primary User
+                            </div>
+
+                            <h3 class="target-persona__name">
+                                System Operator
+                            </h3>
+
+                            <div class="target-persona__environment">
+                                Secure Offline Environments
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="target-persona__quote">
+                        “I need to know which connection is active, where the data
+                        is going, and whether the transfer completed successfully.”
+                    </div>
+
+                </div>
+
+
+                <!-- Need / Pain / Goal -->
+                <div class="target-needs">
+
+                    <!-- Need -->
+                    <div class="target-need">
+
+                        <div class="target-need__number">
+                            01
+                        </div>
+
+                        <div class="target-need__label">
+                            Need
+                        </div>
+
+                        <h4>
+                            Clear Connections
+                        </h4>
+
+                        <p>
+                            Quickly understand available connections and identify
+                            the active communication path.
+                        </p>
+
+                    </div>
+
+
+                    <!-- Pain -->
+                    <div class="target-need">
+
+                        <div class="target-need__number">
+                            02
+                        </div>
+
+                        <div class="target-need__label">
+                            Pain
+                        </div>
+
+                        <h4>
+                            Unclear Status
+                        </h4>
+
+                        <p>
+                            Technical states and transfer feedback made it difficult
+                            to understand what was happening.
+                        </p>
+
+                    </div>
+
+
+                    <!-- Goal -->
+                    <div class="target-need">
+
+                        <div class="target-need__number">
+                            03
+                        </div>
+
+                        <div class="target-need__label">
+                            Goal
+                        </div>
+
+                        <h4>
+                            Confident Transfers
+                        </h4>
+
+                        <p>
+                            Complete data exchange with clear feedback, predictable
+                            workflows, and minimal uncertainty.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 6. USER WORKFLOW -->
+        <section class="section">
+            <div class="container reveal-up">
+
+                <div class="section-header">
+                    <div class="section-label">Journey</div>
+                    <h2 class="section-title">User Workflow Pain Points</h2>
+                </div>
+
+                <div class="workflow-wrapper">
+
+                    <div class="workflow-scroll">
+
+                        <!-- Step 1 -->
+                        <div class="workflow-step">
+
+                            <div class="workflow-number">
+                                1
+                            </div>
+
+                            <b>Connect</b>
+
+                            <span>
+                                Finding the right connection
+                            </span>
+
+                        </div>
+
+
+                        <!-- Arrow -->
+                        <div class="workflow-arrow">
+                            →
+                        </div>
+
+
+                        <!-- Step 2 -->
+                        <div class="workflow-step workflow-step--pain">
+
+                            <span class="workflow-pain-dot"></span>
+
+                            <div class="workflow-number">
+                                2
+                            </div>
+
+                            <b>Confirm</b>
+
+                            <span>
+                                Understanding connection status
+                            </span>
+
+                        </div>
+
+
+                        <!-- Arrow -->
+                        <div class="workflow-arrow">
+                            →
+                        </div>
+
+
+                        <!-- Step 3 -->
+                        <div class="workflow-step workflow-step--pain">
+
+                            <span class="workflow-pain-dot"></span>
+
+                            <div class="workflow-number">
+                                3
+                            </div>
+
+                            <b>Transfer</b>
+
+                            <span>
+                                Monitoring data exchange
+                            </span>
+
+                        </div>
+
+
+                        <!-- Arrow -->
+                        <div class="workflow-arrow">
+                            →
+                        </div>
+
+
+                        <!-- Step 4 -->
+                        <div class="workflow-step">
+
+                            <div class="workflow-number">
+                                4
+                            </div>
+
+                            <b>Recover</b>
+
+                            <span>
+                                Understanding errors and next steps
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+        <!-- 7. UX GOALS -->
+        <section class="section section--alt">
+            <div class="container reveal-up">
+
+                <div class="section-header">
+                    <div class="section-label">UX Goals</div>
+                    <h2 class="section-title">What We Wanted</h2>
+                </div>
+
+                <div class="goal-cards">
+
+                    <!-- Goal 01 -->
+                    <div class="goal-card">
+                        <div class="goal-number">01</div>
+
+                        <h3>Simple Connection</h3>
+
+                        <p>
+                            Find and select the right connection without confusion.
+                        </p>
+                    </div>
+
+
+                    <!-- Goal 02 -->
+                    <div class="goal-card">
+                        <div class="goal-number">02</div>
+
+                        <h3>Clear Status</h3>
+
+                        <p>
+                            Understand connection and transfer status at a glance.
+                        </p>
+                    </div>
+
+
+                    <!-- Goal 03 -->
+                    <div class="goal-card">
+                        <div class="goal-number">03</div>
+
+                        <h3>Build Confidence</h3>
+
+                        <p>
+                            Know where data is going and when the transfer is complete.
+                        </p>
+                    </div>
+
+
+                    <!-- Goal 04 -->
+                    <div class="goal-card">
+                        <div class="goal-number">04</div>
+
+                        <h3>Guide Recovery</h3>
+
+                        <p>
+                            Understand errors and know the next step to recover.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+        <!-- 8. RESEARCH INSIGHTS -->
+        <section class="section section--alt">
+            <div class="container reveal-up">
+
+                <div class="section-header">
+                    <div class="section-label">RESEARCH</div>
+                    <h2 class="section-title">What We Found</h2>
+                </div>
+
+                <div class="insight-cards">
+
+                    <!-- Insight 01 -->
+                    <div class="insight-card">
+
+                        <div class="insight-number">
+                            01
+                        </div>
+
+                        <h3>
+                            Too Many Connections
+                        </h3>
+
+                        <p>
+                            Multiple connection options made the right choice
+                            difficult to identify.
+                        </p>
+
+                    </div>
+
+
+                    <!-- Insight 02 -->
+                    <div class="insight-card">
+
+                        <div class="insight-number">
+                            02
+                        </div>
+
+                        <h3>
+                            Unclear Status
+                        </h3>
+
+                        <p>
+                            Connection states were not always easy to understand
+                            at a glance.
+                        </p>
+
+                    </div>
+
+
+                    <!-- Insight 03 -->
+                    <div class="insight-card">
+
+                        <div class="insight-number">
+                            03
+                        </div>
+
+                        <h3>
+                            Transfer Uncertainty
+                        </h3>
+
+                        <p>
+                            Users needed clearer feedback during data transfers
+                            and completion.
+                        </p>
+
+                    </div>
+
+
+                    <!-- Insight 04 -->
+                    <div class="insight-card">
+
+                        <div class="insight-number">
+                            04
+                        </div>
+
+                        <h3>
+                            Difficult Errors
+                        </h3>
+
+                        <p>
+                            Technical errors did not always make the next action
+                            clear.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+        <!-- 9. INFORMATION ARCHITECTURE -->
+        <section class="section">
+            <!-- INFORMATION ARCHITECTURE -->
+            <div class="container">
+
+                <div class="section-header">
+                    <div>
+                        <div class="section-label">Information Architecture</div>
+                        <h3 class="section-title">
+                            Strategy to Structuring
+                        </h3>
+                    </div>
+
+                </div>
+
+                <div>
+                    <img src="./Image/IA/SecureLink_IA.png"
+                        alt="SecureLink information architecture showing the communication workflow" loading="lazy" />
+                </div>
+
+            </div>
+        </section>
+        <!-- 10. DESIGN STRATEGY -->
+        <section class="section">
+            <div class="container reveal-up">
+                <div class="section-header">
+                    <div class="section-label">Design Strategy</div>
+                    <h2 class="section-title">How We Solved It</h2>
+                </div>
+                <div class="strategy-cards">
+                    <div class="strategy-card">
+                        <div><strong>Problem:</strong> Connection Complexity</div>
+                        <div class="flow-arrow">→</div>
+                        <div><strong>Decision:</strong> Simplified Connection View</div>
+                        <div class="flow-arrow">→</div>
+                        <div><strong>Impact:</strong> Faster Identification</div>
+                    </div>
+                    <div class="strategy-card">
+                        <div><strong>Problem:</strong> Unclear Transfer Status</div>
+                        <div class="flow-arrow">→</div>
+                        <div><strong>Decision:</strong> Clear Progress Feedback</div>
+                        <div class="flow-arrow">→</div>
+                        <div><strong>Impact:</strong> Greater Confidence</div>
+                    </div>
+                    <div class="strategy-card">
+                        <div><strong>Problem:</strong> Difficult Error Recovery</div>
+                        <div class="flow-arrow">→</div>
+                        <div><strong>Decision:</strong> Actionable Error Guidance</div>
+                        <div class="flow-arrow">→</div>
+                        <div><strong>Impact:</strong> Faster Recovery</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+
+
+
+
+
+        <!-- 10. BEFORE vs AFTER -->
+        <!-- <section class="section section--alt">
+            <div class="container reveal-up">
+                <div class="section-header">
+                    <div class="section-label">Transformation</div>
+                    <h2 class="section-title">Before vs After</h2>
+                </div>
+                <div class="b-a-scroll">
+                    <div class="b-a-panel b-a-col">
+                        <div class="before-after-header"><span class="before-tag">Old Experience</span></div>
+                        <div class="case-mockup" style="aspect-ratio: 4/3; opacity: 0.6; filter: grayscale(1);">
+                            <div class="mockup-bar"></div>
+                            <div class="mockup-content">
+                                <div class="mock-box" style="height:40px; margin-bottom: 24px;"></div>
+                                <div class="mock-box" style="height:24px; margin-bottom: 8px;"></div>
+                                <div class="mock-box" style="height:24px; margin-bottom: 8px;"></div>
+                                <div class="mock-box" style="height:24px; margin-bottom: 8px;"></div>
+                            </div>
+                        </div>
+                        <p style="text-align:center; color:var(--color-text-2);">Flat table lists, no metadata previews,
+                            identical names.</p>
+                    </div>
+                    <div class="b-a-arrow">→</div>
+                    <div class="b-a-panel b-a-col">
+                        <div class="before-after-header"><span class="after-tag">New Experience</span></div>
+                        <div class="case-mockup" style="aspect-ratio: 4/3; border-color: var(--color-accent);">
+                            <div class="mockup-bar"></div>
+                            <div class="mockup-content" style="gap:12px;">
+                                <div class="mock-box"
+                                    style="height:40px; border-radius:20px; display:flex; align-items:center; padding:0 16px; font-size:12px; color:var(--color-text-3);">
+                                    Search...</div>
+                                <div style="display:flex; gap:12px;">
+                                    <span class="tag">Doc Type ▾</span> <span class="tag">Date ▾</span>
+                                </div>
+                                <div class="mock-box"
+                                    style="flex:1; border:none; background:var(--color-surface); padding:16px;">
+                                    <div style="font-weight:bold; margin-bottom:8px;">Project_Architecture_v2.pdf</div>
+                                    <div style="font-size:12px; color:var(--color-text-3);">Updated Today • 2.4 MB •
+                                        Status: Approved</div>
+                                </div>
+                            </div>
+                        </div>
+                        <p style="text-align:center; color:var(--color-text-2);">Rich cards, inline metadata, contextual
+                            filters.</p>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+        <!-- 11. SEARCH EXPERIENCE -->
+        <!-- <section class="section">
+            <div class="container reveal-up">
+                <div class="section-header">
+                    <div class="section-label">Core Feature</div>
+                    <h2 class="section-title">Connection Dashboard</h2>
+                </div>
+                <!-- Annotations list -->
+        <!-- <ul
+            style="list-style: none; display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; margin-bottom: 40px;">
+            <li>✓ Visual adapters</li>
+            <li>✓ Live network speed</li>
+            <li>✓ Actionable status</li>
+        </ul> -->
+        <!-- <div class="case-mockup annotated-ui">
+            <div class="mockup-bar"></div>
+            <div class="mockup-content" style="align-items:center;">
+                <div class="mock-box"
+                    style="width:70%; height:50px; border-radius:25px; box-shadow:var(--shadow-md); display:flex; align-items:center; padding:0 24px; font-size:18px;">
+                    <span style="color:var(--color-text-3);">Ethernet Target...</span>
+                    <span
+                        style="height:24px; width:2px; background:var(--color-accent); margin-left:2px; animation: blink 1s infinite;"></span>
+                </div>
+                Hotspots
+                <div class="hotspot" style="top: 80px; left: 30%;">
+                    1<div class="h-note">Progressive typing support</div>
+                </div>
+                <div class="hotspot" style="top: 150px; left: 60%;">
+                    2<div class="h-note">Recent contextual queries</div>
+                </div>
+            </div>
+        </div>
+        </div> -->
+        <!-- </section>  -->
+        <!-- 12. ADVANCED FILTERS -->
+        <!-- 13. METADATA FIRST -->
+        <!-- 14. RESULT HIERARCHY -->
+        <!-- <section class="section section--alt">
+            <div class="container reveal-up">
+                <div class="section-header">
+                    <div class="section-label">Exploration</div>
+                    <h2 class="section-title">Advanced Hierarchy &amp; Filters</h2>
+                </div>
+                <div class="split-grid">
+                    <div>
+                        <h3 style="margin-bottom: 24px;">Continuous Transparency</h3>
+                        <p style="color:var(--color-text-3); margin-bottom:16px;">Expanding the filter panel allows
+                            users to progressively reduce results natively, without relying on complex boolean text
+                            strings.</p>
+                        <p style="color:var(--color-text-3);">Results display primary details (Name), secondary
+                            (Version, Date), and supporting data (Author) in a structured format.</p>
+                    </div>
+                    <div class="case-mockup">
+                        <div class="mockup-bar"></div>
+                        <div style="display:flex; height:100%;">
+                            <div style="width:30%; border-right:1px solid var(--color-border); padding: 16px;">
+                                <div class="mock-box" style="height:24px; margin-bottom:12px;"></div>
+                                <div class="mock-box"
+                                    style="height:24px; margin-bottom:12px; background:var(--color-accent-light);">
+                                </div>
+                                <div class="mock-box" style="height:24px;"></div>
+                            </div>
+                            <div style="flex:1; padding: 16px; display:flex; flex-direction:column; gap:16px;">
+                                <div class="mock-box" style="padding:16px;">
+                                    <div
+                                        style="height:12px; width:40%; background:var(--color-text); margin-bottom:8px;">
+                                    </div>
+                                    <div style="height:8px; width:70%; background:var(--color-text-3);"></div>
+                                </div>
+                                <div class="mock-box" style="padding:16px;">
+                                    <div
+                                        style="height:12px; width:30%; background:var(--color-text); margin-bottom:8px;">
+                                    </div>
+                                    <div style="height:8px; width:60%; background:var(--color-text-3);"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+        <!-- 15. DESIGN DECISIONS -->
+        <!-- <section class="section">
+            <div class="container reveal-up">
+                <div class="section-header">
+                    <div class="section-label">Editorial</div>
+                    <h2 class="section-title">Design Decisions</h2>
+                </div>
+                <div style="display:flex; flex-direction:column; gap:var(--spacing-md);">
+                    <div class="strategy-card">
+                        <div><strong>Challenge:</strong> Users couldn't identify active cables.</div>
+                        <div class="flow-arrow">→</div>
+                        <div><strong>Decision:</strong> Introduce traffic-light status indicators.</div>
+                        <div class="flow-arrow">→</div>
+                        <div><strong>Outcome:</strong> Instant identification without querying.</div>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+        <!-- 16 & 17. COMPONENTS & INTERACTIONS -->
+        <!-- <section class="section section--alt">
+            <div class="container reveal-up">
+                <div class="section-header">
+                    <div class="section-label">Component</div>
+                    <h2 class="section-title">What Makes It Work</h2>
+                </div>
+                <div class="snapshot-grid" style="grid-template-columns: repeat(4, 1fr);">
+                    <div class="mock-box"
+                        style="height:120px; display:flex; align-items:center; justify-content:center; padding:16px;">
+                        <span
+                            style=" align-items:center; background:rgba(10, 102, 194, 1); color:#fff; padding:6px 14px; border-radius:10px; font-size:13px;">Eth_Adapter_1
+                            <svg fill="none" height="12" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"
+                                width="12">
+                                <line x1="18" x2="6" y1="6" y2="18"></line>
+                                <line x1="6" x2="18" y1="6" y2="18"></line>
+                            </svg></span>
+                    </div>
+                    <div class="mock-box"
+                        style="height:120px; display:flex; align-items:center; justify-content:center; padding:16px;">
+                        <div
+                            style=" align-items:center; background:rgba(10, 102, 194, 1); color:#fff; padding:6px 14px; border-radius:10px; font-size:13px;">
+                            <strong>Establish Connection</strong><br /><span style="color:#fff;">198.168.1.16</span>
+                        </div>
+                    </div>
+                    <div class="mock-box"
+                        style="height:120px; display:flex; align-items:center; justify-content:center; padding:16px;">
+                        <div
+                            style="display:inline-flex; align-items:center; gap:6px; background:#d1fae5; color:#065f46; border:1px solid #34d399; padding:4px 10px; border-radius:12px; font-size:11px; font-weight:var(--fw-bold);">
+                            <span style="width:6px;height:6px;background:#059669;border-radius:50%;"></span> CONNECTED
+                        </div>
+                    </div>
+                    <div class="mock-box"
+                        style="height:120px; display:flex; align-items:flex-start; justify-content:center; flex-direction:column; padding:20px; gap:8px;">
+                        <div style="font-size:12px; font-weight:bold;">Transfer Histroy</div>
+                        <div style="display:flex; gap:6px;">
+                            <span
+                                style="align-items:center; background:var(--color-surface); color:#2f2e2e; padding:6px 14px; border-radius:10px; font-size:13px;">Past
+                                Week</span>
+                            <span
+                                style=" align-items:center; background:rgba(10, 102, 194, 1); color:#fff; padding:6px 14px; border-radius:10px; font-size:13px;">Past
+                                Month</span>
+                        </div>
+                    </div>
+                </div>
+                <p style="text-align:center; margin-top:24px; color:var(--color-text-3);">Select the right adapter, view
+                    connection details, monitor live status, and track transfer history.</p>
+            </div>
+        </section> -->
+        <!-- 18. FINAL UI SHOWCASE -->
+
+        <section class="section">
+            <div class="container reveal-up" style="text-align:center;">
+                <div class="section-header">
+                    <h2 class="section-title" style="font-size:clamp(48px, 6vw, 84px);">The RAW LOOK</h2>
+                </div>
+                <div class="ui-gallery">
+                    <div class="ui-gallery-item">
+                        <img src="./Image/Project1/LOFI/1.CONNECTED DEVICES COMPONENT.png" alt="">
+                    </div>
+                    <div class="ui-gallery-item">
+                        <img src="./Image/Project1/LOFI/2.MESSAGING WORKSPACE COMPONENT.png" alt="">
+                    </div>
+                    <div class="ui-gallery-item">
+                        <img src="./Image/Project1/LOFI/3.FILE TRANSFER & PROGRESS COMPONENT.png" alt="">
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- 11. DESIGN PROCESS -->
+        <section class="section">
+            <div class="container reveal-up">
+                <div class="section-header" style="text-align: center; margin-bottom: var(--spacing-3xl);">
+                    <div class="section-label">Methodology</div>
+                    <h2 class="section-title">The Design Process</h2>
+                    <p class="section-subtitle">Simplifying secure communication into a clear and manageable workflow.
+                    </p>
+                </div>
+
+                <div class="swipe-hint-badge"><span>Swipe horizontally</span> <span class="swipe-arrow">&rarr;</span>
+                </div>
+
+                <div class="ux-components-track">
+
+                    <!-- COMPONENT 01 — CONNECTION STATUS -->
+                    <div class="ux-component connection-component">
+
+                        <div class="ux-component-header">
+                            <span>Available Connections</span>
+                            <span class="ux-live-status">
+                                <span class="ux-dot green"></span> Live
+                            </span>
+                        </div>
+
+                        <button class="connection-item active" data-status="connected">
+                            <div class="connection-icon">▣</div>
+
+                            <div class="connection-info">
+                                <strong>WIN-OPS-01</strong>
+                                <span>Operations Station · Windows 11 Pro</span>
+                            </div>
+
+                            <span class="connection-status connected">
+                                <span class="ux-dot green"></span>
+                                Connected
+                            </span>
+                        </button>
+
+                        <button class="connection-item" data-status="pending">
+                            <div class="connection-icon">▣</div>
+
+                            <div class="connection-info">
+                                <strong>RHEL-GATEWAY-02</strong>
+                                <span>Gateway Node · RHEL 9.3</span>
+                            </div>
+
+                            <span class="connection-status pending">
+                                <span class="ux-dot amber"></span>
+                                Connecting
+                            </span>
+                        </button>
+
+                        <button class="connection-item" data-status="disconnected">
+                            <div class="connection-icon">▣</div>
+
+                            <div class="connection-info">
+                                <strong>WIN-LEGACY-05</strong>
+                                <span>Legacy System · Windows 7</span>
+                            </div>
+
+                            <span class="connection-status disconnected">
+                                <span class="ux-dot gray"></span>
+                                Disconnected
+                            </span>
+                        </button>
+
+                        <div class="connection-feedback" id="connectionFeedback">
+                            Secure channel active · Ready for communication
+                        </div>
+
+                    </div>
+
+                    <!-- COMPONENT 02 — ERROR GUIDANCE -->
+                    <div class="ux-component error-component">
+
+                        <div class="error-state-icon" id="errorIcon">
+                            !
+                        </div>
+
+                        <div class="error-state-content">
+                            <strong id="errorTitle">Connection Unavailable</strong>
+
+                            <p id="errorMessage">
+                                The secure connection could not be established.
+                                Check the destination system and try again.
+                            </p>
+
+                            <button class="ux-button" id="retryConnection">
+                                Try Again
+                            </button>
+                        </div>
+
+                    </div>
+
+
+                    <!-- COMPONENT 03 — FILE TRANSFER -->
+                    <div class="ux-component transfer-component">
+
+                        <div class="ux-component-header">
+                            <div>
+                                <span>Secure File Transfer</span>
+                                <small>RHEL-GATEWAY-02</small>
+                            </div>
+
+                            <span class="transfer-status">
+                                <span class="ux-dot green"></span>
+                                Secure
+                            </span>
+                        </div>
+
+                        <div class="transfer-dropzone" id="transferDropzone">
+                            <div class="transfer-upload-icon">↑</div>
+
+                            <strong>Drop files to transfer</strong>
+
+                            <span>
+                                Secure file exchange between connected systems
+                            </span>
+
+                            <button class="ux-button secondary" id="selectFileButton">
+                                Select Files
+                            </button>
+                        </div>
+
+                        <div class="transfer-file">
+
+                            <div class="file-icon">ZIP</div>
+
+                            <div class="file-details">
+                                <strong>update_package_v2.zip</strong>
+                                <span>253.0 MB · RHEL-GATEWAY-02</span>
+                            </div>
+
+                            <strong id="transferPercentage">64%</strong>
+
+                        </div>
+
+                        <div class="transfer-progress">
+                            <div id="transferProgress"></div>
+                        </div>
+
+                        <div class="transfer-meta">
+                            <span id="transferState">
+                                Transfer in progress
+                            </span>
+
+                            <span>
+                                18.6 MB/s
+                            </span>
+                        </div>
+
+                        <div class="transfer-actions">
+                            <button class="ux-button secondary" id="pauseTransfer">
+                                Pause
+                            </button>
+
+                            <button class="ux-button danger" id="cancelTransfer">
+                                Cancel
+                            </button>
+                        </div>
+
+                    </div>
+                    <!-- COMPONENT 04 — SECURE MESSAGE -->
+                    <div class="ux-component message-component">
+
+                        <div class="message-header">
+                            <div class="message-device">
+                                <div class="connection-icon">▣</div>
+
+                                <div>
+                                    <strong>WIN-OPS-01</strong>
+                                    <span>Secure Communication Channel</span>
+                                </div>
+                            </div>
+
+                            <span class="message-secure">
+                                <span class="ux-dot green"></span>
+                                Secure
+                            </span>
+                        </div>
+
+                        <div class="message-thread" id="messageThread">
+
+                            <div class="message received">
+                                <span class="message-label">WIN-OPS-01</span>
+                                Please review the latest operations update.
+                            </div>
+
+                            <div class="message sent">
+                                <span class="message-label">SecureLink Operator</span>
+                                Update reviewed. Deployment successful.
+                            </div>
+
+                        </div>
+
+                        <div class="message-composer">
+
+                            <textarea id="secureMessage" placeholder="Type your secure message..."
+                                maxlength="240"></textarea>
+
+                            <div class="message-composer-footer">
+
+                                <span id="messageCounter">
+                                    0 / 240
+                                </span>
+
+                                <button class="ux-button" id="sendSecureMessage">
+                                    Send Message
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- COMPONENT 05 — DEVICE STATUS -->
+                    <div class="ux-component device-component">
+
+                        <div class="ux-component-header">
+
+                            <div>
+                                <span>Connected Device</span>
+                                <small>System status & communication health</small>
+                            </div>
+
+                            <button class="device-refresh" id="refreshDevice">
+                                ↻
+                            </button>
+
+                        </div>
+
+                        <div class="device-main">
+
+                            <div class="device-avatar">
+                                ▣
+                            </div>
+
+                            <div class="device-info">
+                                <strong>WIN-OPS-01</strong>
+                                <span>Operations Station</span>
+
+                                <div class="device-badge">
+                                    <span class="ux-dot green"></span>
+                                    Connected
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="device-details">
+
+                            <div>
+                                <span>Operating System</span>
+                                <strong>Windows 11 Pro</strong>
+                            </div>
+
+                            <div>
+                                <span>IP Address</span>
+                                <strong>10.10.24.18</strong>
+                            </div>
+
+                            <div>
+                                <span>Communication</span>
+                                <strong class="healthy">Active</strong>
+                            </div>
+
+                            <div>
+                                <span>Last Activity</span>
+                                <strong>2 min ago</strong>
+                            </div>
+
+                        </div>
+
+                        <div class="device-actions">
+
+                            <button class="ux-button secondary">
+                                View Activity
+                            </button>
+
+                            <button class="ux-button secondary">
+                                Send Message
+                            </button>
+
+                            <button class="ux-button">
+                                Transfer File
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+        <!--Final UI-->
+        <section class="section">
+            <div class="container reveal-up" style="text-align:center;">
+                <div class="section-header">
+                    <h2 class="section-title" style="font-size:clamp(48px, 6vw, 84px);">The Final Look</h2>
+                </div>
+                <div class="ui-gallery">
+                    <div class="ui-gallery-item">
+                        <img src="./Image/Project1/HIFI/1 Dashboard.png" alt="">
+                    </div>
+                    <div class="ui-gallery-item">
+                        <img src="./Image/Project1/HIFI/2 Connected Device.png" alt="">
+                    </div>
+                    <div class="ui-gallery-item">
+                        <img src="./Image/Project1/HIFI/3 Message Screen.png" alt="">
+                    </div>
+                    <div class="ui-gallery-item">
+                        <img src="./Image/Project1/HIFI/4 File Exchange.png" alt="">
+                    </div>
+                    <div class="ui-gallery-item">
+                        <img src="./Image/Project1/HIFI/5 Activity.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 20. KEY TAKEAWAYS -->
+        <section class="section section--alt">
+            <div class="container reveal-up">
+
+                <div class="section-header">
+                    <div class="section-label">Outcome & Takeaways</div>
+                    <h2 class="section-title">What Changed & What I Learned</h2>
+                </div>
+
+                <!-- Key Takeaways -->
+                <h3 style="margin-top:var(--spacing-2xl); margin-bottom:var(--spacing-md); text-align:center;">
+                    Key Takeaways
+                </h3>
+
+                <div class="takeaways">
+
+                    <div class="takeaway-card">
+                        <strong style="display:block; margin-bottom:8px; font-size:20px;">
+                            Complexity Needs Clarity
+                        </strong>
+
+                        <p style="color:var(--color-text-3);">
+                            Simplify technical workflows without hiding important information.
+                        </p>
+                    </div>
+
+
+                    <div class="takeaway-card">
+                        <strong style="display:block; margin-bottom:8px; font-size:20px;">
+                            Status Builds Confidence
+                        </strong>
+
+                        <p style="color:var(--color-text-3);">
+                            Clear connection and transfer feedback helps users stay confident.
+                        </p>
+                    </div>
+
+
+                    <div class="takeaway-card">
+                        <strong style="display:block; margin-bottom:8px; font-size:20px;">
+                            Recovery Needs Direction
+                        </strong>
+
+                        <p style="color:var(--color-text-3);">
+                            Errors should explain what happened and guide users toward the next step.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+
+
+        <!-- 21. REFLECTION -->
+        <section class="section">
+            <div class="container reveal-up" style="max-width:800px; text-align:center;">
+                <h2 class="section-title">Reflection</h2>
+
+                <p style="font-size:24px; line-height:1.5; color:var(--color-text-2); margin-top:24px;">
+                    "This project taught me that in secure environments, good UX is about making
+                    complex communication clear, visible, and predictable—without taking control
+                    away from the user."
+                </p>
+            </div>
+        </section>
+
+
+        <!-- NEXT PROJECT -->
+        <div style="text-align: center;
+           margin-top: var(--spacing-3xl);
+           padding-top: var(--spacing-xl);
+           padding-bottom: var(--spacing-xl);
+           border-top: 1px solid var(--color-border);">
+            <p style="color:var(--color-text-3);
+               text-transform:uppercase;
+               letter-spacing:0.1em;
+               font-size:12px;
+               margin-bottom:16px;">
+                Let's Connect
+            </p>
+            <a class="section-title" href="project2.html" onmouseout="this.style.opacity=1"
+                onmouseover="this.style.opacity=0.7" style="text-decoration:none;
+              display:inline-block;
+              transition:opacity 0.2s;">
+                Explore Version Control Management →
+            </a>
+        </div>
+        <footer class="footer" id="contact" style="background:#000; color:#fff;">
+            <div class="container">
+                <!-- Centered Connect Section -->
+                <div aria-label="Social media links" class="footer__connect">
+                    <p class="footer__connect-heading">Let's Build Better Products.</p>
+                    <div class="footer__social-icons">
+                        <!-- Behance -->
+                        <a aria-label="View Behance profile" class="fsi-btn fsi-btn--behance"
+                            href="https://www.behance.net/designecreativ14" rel="noopener noreferrer" target="_blank">
+                            <svg aria-hidden="true" fill="currentColor" height="22" viewbox="0 0 24 24" width="22">
+                                <path
+                                    d="M22 7h-7v-2h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14h-8.027c.13 3.211 3.483 3.312 4.588 2.029h3.168zm-7.686-4h4.965c-.105-1.547-1.136-2.219-2.477-2.219-1.466 0-2.277.768-2.488 2.219zm-9.574 6.988h-6.466v-14.967h6.953c5.476.081 5.58 5.444 2.72 6.906 3.461 1.26 3.577 8.061-3.207 8.061zm-3.466-8.988h3.584c2.508 0 2.906-3-4-3.001h-3.58v3.001zm0 6.002h3.69c2.813 0 3.336-3.134 0-3.134h-3.69v3.134z">
+                                </path>
+                            </svg>
+                            <span aria-hidden="true" class="fsi-label">Explore</span>
+                        </a>
+                        <!-- Email -->
+                        <a aria-label="Send an email to Rahul Nalte" class="fsi-btn fsi-btn--email"
+                            href="mailto:rahulnalte26@gmail.com">
+                            <svg aria-hidden="true" fill="none" height="22" stroke="currentColor" stroke-width="2"
+                                viewbox="0 0 24 24" width="22">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                                </path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                            <span aria-hidden="true" class="fsi-label">Professional</span>
+                        </a>
+                        <!-- LinkedIn -->
+                        <a aria-label="View LinkedIn profile" class="fsi-btn fsi-btn--linkedin"
+                            href="https://www.linkedin.com/in/rahulnalte25/" rel="noopener noreferrer" target="_blank">
+                            <svg aria-hidden="true" fill="currentColor" height="22" viewbox="0 0 24 24" width="22">
+                                <path
+                                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z">
+                                </path>
+                            </svg>
+                            <span aria-hidden="true" class="fsi-label">Connect</span>
+                        </a>
+                        <!-- Instagram -->
+                        <a aria-label="View Instagram profile" class="fsi-btn fsi-btn--instagram"
+                            href="https://www.instagram.com/rahulnalte_27/" rel="noopener noreferrer" target="_blank">
+                            <svg aria-hidden="true" fill="none" height="22" stroke="currentColor" stroke-width="2"
+                                viewbox="0 0 24 24" width="22">
+                                <rect height="20" rx="5" ry="5" width="20" x="2" y="2"></rect>
+                                <circle cx="12" cy="12" r="4"></circle>
+                                <circle cx="17.5" cy="6.5" fill="currentColor" r="0.5"></circle>
+                            </svg>
+                            <span aria-hidden="true" class="fsi-label">Scrolling</span>
+                        </a>
+                        <!-- Phone -->
+                        <a aria-label="Call Rahul Nalte" class="fsi-btn fsi-btn--phone" href="tel:+919420570716">
+                            <svg aria-hidden="true" fill="none" height="22" stroke="currentColor" stroke-width="2"
+                                viewbox="0 0 24 24" width="22">
+                                <path
+                                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.86a16 16 0 0 0 6.23 6.23l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z">
+                                </path>
+                            </svg>
+                            <span aria-hidden="true" class="fsi-label">Extrovert</span>
+                        </a>
+                        <!-- GitHub -->
+                        <a aria-label="View GitHub profile" class="fsi-btn fsi-btn--github"
+                            href="https://github.com/rahulnalte" rel="noopener noreferrer" target="_blank">
+                            <svg aria-hidden="true" fill="currentColor" height="22" viewbox="0 0 24 24" width="22">
+                                <path
+                                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z">
+                                </path>
+                            </svg>
+                            <span aria-hidden="true" class="fsi-label">Work</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer__bottom"
+                    style="text-align:center; padding-top:24px; border-top:1px solid rgba(255,255,255,0.1); color:rgba(255,255,255,0.6); font-size:14px; margin-top:24px;">
+                    <p class="footer__copy">© 2026 Rahul Nalte. All rights reserved.</p>
+                    <p class="footer__made" style="margin-top:8px;">Made with <span aria-label="love">❤️</span> by Rahul
+                        Nalte</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+    <!-- JS -->
+    <script src="js/animations.js"></script>
+    <script src="js/scroll.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        <script>
+/* =========================================================
+            01 — CONNECTION STATUS
+========================================================= */
+
+document.querySelectorAll(".connection-item").forEach(item => {
+
+    item.addEventListener("click", () => {
+
+        document.querySelectorAll(".connection-item")
+            .forEach(el => el.classList.remove("active"));
+
+        item.classList.add("active");
+
+        const status = item.dataset.status;
+        const feedback = document.getElementById("connectionFeedback");
+
+        if (status === "connected") {
+            feedback.textContent =
+                "Secure channel active · Ready for communication";
+        }
+
+        if (status === "pending") {
+            feedback.textContent =
+                "Connection handshake in progress · Please wait";
+        }
+
+        if (status === "disconnected") {
+            feedback.textContent =
+                "Secure channel unavailable · Check destination system";
+        }
+
+    });
+
+});
+
+
+/* =========================================================
+   02 — ERROR / RETRY
+========================================================= */
+
+document
+    .getElementById("retryConnection")
+    .addEventListener("click", function () {
+
+        const icon = document.getElementById("errorIcon");
+        const title = document.getElementById("errorTitle");
+        const message = document.getElementById("errorMessage");
+
+        icon.textContent = "✓";
+
+        icon.style.background = "#ecfdf3";
+        icon.style.color = "#15803d";
+
+        title.textContent = "Connection Restored";
+
+        message.textContent =
+            "Secure channel established successfully. The system is ready.";
+
+        this.textContent = "Connected";
+
+    });
+
+
+/* =========================================================
+   03 — FILE TRANSFER
+========================================================= */
+
+let transferProgress = 64;
+let transferTimer = null;
+let paused = false;
+
+const progressBar =
+    document.getElementById("transferProgress");
+
+const percentage =
+    document.getElementById("transferPercentage");
+
+const transferState =
+    document.getElementById("transferState");
+
+function updateTransfer() {
+
+    progressBar.style.width =
+        transferProgress + "%";
+
+    percentage.textContent =
+        transferProgress + "%";
+
+}
+
+document
+    .getElementById("pauseTransfer")
+    .addEventListener("click", function () {
+
+        paused = !paused;
+
+        this.textContent =
+            paused ? "Resume" : "Pause";
+
+        transferState.textContent =
+            paused
+                ? "Transfer paused"
+                : "Transfer in progress";
+
+    });
+
+
+document
+    .getElementById("cancelTransfer")
+    .addEventListener("click", function () {
+
+        clearInterval(transferTimer);
+
+        transferProgress = 0;
+
+        updateTransfer();
+
+        transferState.textContent =
+            "Transfer cancelled";
+
+    });
+
+
+document
+    .getElementById("selectFileButton")
+    .addEventListener("click", function () {
+
+        transferProgress = 0;
+
+        updateTransfer();
+
+        transferState.textContent =
+            "Preparing transfer...";
+
+        clearInterval(transferTimer);
+
+        transferTimer = setInterval(() => {
+
+            if (paused) return;
+
+            transferProgress += 5;
+
+            if (transferProgress >= 100) {
+
+                transferProgress = 100;
+
+                clearInterval(transferTimer);
+
+                transferState.textContent =
+                    "Transfer completed successfully";
+
+            }
+
+            updateTransfer();
+
+        }, 350);
+
+    });
+
+
+/* =========================================================
+   DRAG & DROP
+========================================================= */
+
+const dropzone =
+    document.getElementById("transferDropzone");
+
+dropzone.addEventListener("dragover", event => {
+
+    event.preventDefault();
+
+    dropzone.classList.add("dragging");
+
+});
+
+dropzone.addEventListener("dragleave", () => {
+
+    dropzone.classList.remove("dragging");
+
+});
+
+dropzone.addEventListener("drop", event => {
+
+    event.preventDefault();
+
+    dropzone.classList.remove("dragging");
+
+    transferState.textContent =
+        "File ready for secure transfer";
+
+});
+
+
+/* =========================================================
+   04 — SECURE MESSAGE
+========================================================= */
+
+const messageInput =
+    document.getElementById("secureMessage");
+
+const messageCounter =
+    document.getElementById("messageCounter");
+
+messageInput.addEventListener("input", () => {
+
+    messageCounter.textContent =
+        messageInput.value.length + " / 240";
+
+});
+
+
+document
+    .getElementById("sendSecureMessage")
+    .addEventListener("click", () => {
+
+        const text =
+            messageInput.value.trim();
+
+        if (!text) return;
+
+        const message =
+            document.createElement("div");
+
+        message.className =
+            "message sent";
+
+        message.innerHTML = `
+            <span class="message-label">
+                SecureLink Operator
+            </span>
+            ${text}
+        `;
+
+        document
+            .getElementById("messageThread")
+            .appendChild(message);
+
+        messageInput.value = "";
+
+        messageCounter.textContent =
+            "0 / 240";
+
+    });
+
+
+/* =========================================================
+   05 — DEVICE REFRESH
+========================================================= */
+
+document
+    .getElementById("refreshDevice")
+    .addEventListener("click", function () {
+
+        const original =
+            this.textContent;
+
+        this.textContent = "✓";
+
+        setTimeout(() => {
+            this.textContent = original;
+        }, 1000);
+
+    });
+    </script>
+    </script>
+</body>
+
+</html>

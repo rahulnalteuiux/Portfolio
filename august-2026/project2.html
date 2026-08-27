@@ -1,0 +1,2128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <title>Enterprise Version Control System - Case Study</title>
+    <link href="index.html" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&amp;family=Instrument+Serif:ital@0;1&amp;display=swap"
+        rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/animations.css" rel="stylesheet" />
+    <link href="css/responsive.css" rel="stylesheet" />
+    <style>
+        /* =========================================
+   SECURELINK HERO SCREEN SHOWCASE
+   ========================================= */
+
+        .securelink-hero-showcase {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+
+        /* =========================================
+   HORIZONTAL SLIDER
+   ========================================= */
+
+        .securelink-hero-track {
+            display: flex;
+
+            width: 500%;
+
+            animation: securelinkScreenShowcase 9s infinite cubic-bezier(0.65, 0, 0.35, 1);
+
+            will-change: transform;
+        }
+
+
+        /* =========================================
+   ONE SCREEN AT A TIME
+   ========================================= */
+
+        .securelink-hero-slide {
+            width: 20%;
+            min-width: 20%;
+
+            flex: 0 0 20%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            box-sizing: border-box;
+        }
+
+
+        /* =========================================
+   SCREEN IMAGE
+   ========================================= */
+
+        .securelink-hero-slide img {
+            display: block;
+
+            width: 100%;
+            height: auto;
+
+            object-fit: contain;
+
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+
+        /* =========================================
+   HORIZONTAL AUTO MOVEMENT
+   ========================================= */
+
+        @keyframes securelinkScreenShowcase {
+
+            /* Screen 1 */
+            0% {
+                transform: translateX(0%);
+            }
+
+            16% {
+                transform: translateX(0%);
+            }
+
+
+            /* Screen 2 */
+            20% {
+                transform: translateX(-20%);
+            }
+
+            36% {
+                transform: translateX(-20%);
+            }
+
+
+            /* Screen 3 */
+            40% {
+                transform: translateX(-40%);
+            }
+
+            56% {
+                transform: translateX(-40%);
+            }
+
+
+            /* Screen 4 */
+            60% {
+                transform: translateX(-60%);
+            }
+
+            76% {
+                transform: translateX(-60%);
+            }
+
+
+            /* Screen 5 */
+            80% {
+                transform: translateX(-80%);
+            }
+
+            96% {
+                transform: translateX(-80%);
+            }
+
+
+            /* Restart */
+            100% {
+                transform: translateX(0%);
+            }
+        }
+
+
+        /* =========================================
+   TABLET
+   ========================================= */
+
+        @media (max-width: 900px) {
+
+            .securelink-hero-track {
+                animation-duration: 8s;
+            }
+
+        }
+
+
+        /* =========================================
+   MOBILE
+   ========================================= */
+
+        @media (max-width: 600px) {
+
+            .securelink-hero-showcase {
+                width: 100%;
+                overflow: hidden;
+            }
+
+            .securelink-hero-track {
+                animation-duration: 7s;
+            }
+
+            .securelink-hero-slide img {
+                width: 100%;
+                height: auto;
+            }
+
+        }
+
+
+        /* =========================================
+   SMALL MOBILE
+   ========================================= */
+
+        @media (max-width: 380px) {
+
+            .securelink-hero-track {
+                animation-duration: 7s;
+            }
+
+        }
+
+
+        /* =========================================
+   ACCESSIBILITY
+   ========================================= */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .securelink-hero-track {
+                animation: none;
+                transform: translateX(0);
+            }
+
+        }
+
+        .page-header {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            padding-top: var(--nav-height);
+            position: relative;
+        }
+
+        .nda-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            padding: 6px 16px;
+            border-radius: var(--radius-full);
+            font-size: var(--fs-xs);
+            font-weight: var(--fw-semibold);
+            color: var(--color-text-2);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .split-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-2xl);
+            align-items: center;
+        }
+
+        .split-grid-lg {
+            gap: var(--spacing-3xl);
+        }
+
+        .case-mockup {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+            aspect-ratio: 16/10;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mockup-bar {
+            height: 32px;
+            background: var(--color-bg);
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            gap: 6px;
+        }
+
+        .mockup-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--color-border);
+        }
+
+        .mockup-content {
+            padding: 32px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .mock-box {
+            background: var(--color-bg);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: var(--radius-sm);
+        }
+
+        .snapshot-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-md);
+        }
+
+        .snapshot-item {
+            background: var(--color-surface);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+        }
+
+
+        .flow-diagram {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: var(--spacing-xl);
+            padding: var(--spacing-xl);
+            background: var(--color-surface);
+            border-radius: var(--radius-lg);
+            position: relative;
+        }
+
+        .flow-node {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            padding: 16px 24px;
+            background: var(--color-bg);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--color-border);
+        }
+
+        .flow-arrow {
+            color: var(--color-accent);
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        .goal-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .goal-card {
+            padding: var(--spacing-lg);
+            background: var(--color-surface);
+            border-radius: var(--radius-lg);
+            transition: transform var(--transition-fast);
+            border: 1px solid transparent;
+        }
+
+        .goal-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--color-border);
+        }
+
+        .tree-diagram {
+            background: var(--color-surface);
+            padding: var(--spacing-3xl) var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-md);
+            text-align: center;
+        }
+
+        .insight-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-lg);
+        }
+
+        .insight-card {
+            padding: var(--spacing-lg);
+            background: var(--color-bg);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+        }
+
+        .strategy-cards {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+        }
+
+        .strategy-card {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr auto 1fr;
+            align-items: center;
+            gap: var(--spacing-md);
+            background: var(--color-surface);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            text-align: center;
+        }
+
+        .hero-image {
+            border: 10px solid black;
+            border-radius: 20px;
+        }
+
+        .snap-lbl {
+            font-size: 12px;
+            color: var(--color-text-3);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 4px;
+        }
+
+        .snap-val {
+            font-size: var(--fs-body);
+            font-weight: var(--fw-semibold);
+        }
+
+        .c-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--color-surface-2);
+            color: var(--color-text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+            border: 1px solid var(--color-border);
+        }
+
+        .problem-card {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+        }
+
+        .goal-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .goal-card {
+            padding: var(--spacing-lg);
+            background: var(--color-surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--color-border);
+        }
+
+        .flow-diagram {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: var(--spacing-xl);
+            padding: var(--spacing-xl);
+            background: var(--color-surface);
+            border-radius: var(--radius-lg);
+            position: relative;
+        }
+
+        .flow-node {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            padding: 16px 24px;
+            background: var(--color-bg);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--color-border);
+            font-weight: 500;
+        }
+
+        .flow-arrow {
+            color: var(--color-text-3);
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        .insight-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-lg);
+        }
+
+        .insight-card {
+            padding: var(--spacing-lg);
+            background: var(--color-bg);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+        }
+
+        .design-step {
+            margin-bottom: var(--spacing-2xl);
+            padding-bottom: var(--spacing-2xl);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .design-step:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .b-a-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xl);
+        }
+
+        .b-a-col {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+        }
+
+        .color-palette {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-sm);
+            flex-wrap: wrap;
+        }
+
+        .color-swatch {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100px;
+        }
+
+        .c-box {
+            width: 100%;
+            height: 64px;
+            border-radius: 8px;
+        }
+
+        .annotated-ui {
+            position: relative;
+            margin-top: var(--spacing-lg);
+        }
+
+        .hotspot {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            background: var(--color-text);
+            color: var(--color-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            outline: 4px solid var(--color-bg);
+            cursor: pointer;
+            transition: transform 0.2s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .p1-hero-mac {
+            margin-top: 64px;
+            width: 100%;
+            max-width: 1000px;
+            aspect-ratio: 16/10;
+            height: auto;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-bottom: none;
+            border-top-left-radius: 24px;
+            border-top-right-radius: 24px;
+            box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 3;
+            transform: translateY(20px);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hotspot:hover {
+            transform: scale(1.1);
+        }
+
+        .workflow-scroll {
+            display: flex;
+            justify-content: center;
+            flex-wrap: nowrap;
+            align-items: center;
+            gap: 0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            padding-bottom: 8px;
+        }
+
+        .workflow-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .workflow-step {
+            flex: 0 0 auto;
+            scroll-snap-align: center;
+        }
+
+        .b-a-scroll {
+            display: flex;
+            align-items: stretch;
+            gap: 0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+        }
+
+        .b-a-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .b-a-arrow {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 12px;
+            font-size: 28px;
+            color: var(--color-accent);
+            font-weight: bold;
+        }
+
+        .b-a-panel {
+            flex: 0 0 min(300px, 80vw);
+            scroll-snap-align: center;
+        }
+
+        /* 3. Bento Box Grid (Persona & Features) */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: auto auto;
+            gap: var(--spacing-md);
+        }
+
+        .bento-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .bento-card--large {
+            grid-column: span 2;
+            grid-row: span 2;
+            background: var(--color-bg);
+        }
+
+        .bento-card--tall {
+            grid-row: span 2;
+        }
+
+        .bento-card--wide {
+            grid-column: span 2;
+        }
+
+        .ui-gallery {
+            display: flex;
+            gap: 24px;
+            overflow-x: auto;
+            padding-bottom: 24px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: var(--color-accent) var(--color-surface);
+            margin-top: var(--spacing-xl);
+        }
+
+        .ui-gallery::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .ui-gallery::-webkit-scrollbar-track {
+            background: var(--color-surface);
+            border-radius: 4px;
+        }
+
+        .ui-gallery::-webkit-scrollbar-thumb {
+            background: var(--color-accent);
+            border-radius: 4px;
+        }
+
+        .ui-gallery-item {
+            flex: 0 0 85%;
+
+            scroll-snap-align: center;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            background: var(--color-surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-serif);
+            font-size: 24px;
+            color: var(--color-text-3);
+            border: 5px solid black;
+        }
+
+        @media (max-width: 900px) {
+
+            .split-grid,
+            .insight-cards,
+            .b-a-grid,
+            .goal-cards,
+            .color-palette {
+                grid-template-columns: 1fr;
+            }
+
+            .snapshot-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .strategy-cards {
+                flex-direction: row;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                padding-bottom: 16px;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: thin;
+            }
+
+            .strategy-card {
+                min-width: 90%;
+                scroll-snap-align: center;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .strategy-card .flow-arrow {
+                transform: rotate(90deg);
+            }
+
+            .challenge-outcome-card {
+                flex-direction: column !important;
+                gap: 24px !important;
+                text-align: center;
+            }
+
+            .challenge-outcome-card .outcome-divider {
+                width: 100% !important;
+                height: 1px !important;
+                margin: 16px 0;
+            }
+
+            .flow-diagram {
+                flex-direction: column;
+                gap: var(--spacing-sm);
+            }
+
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+    <style>
+        @media (max-width: 900px) {
+            .workflow-scroll {
+                flex-wrap: nowrap !important;
+                justify-content: flex-start !important;
+                overflow-x: auto !important;
+                padding-bottom: 24px !important;
+                scroll-padding: 0 16px;
+                scroll-snap-type: x mandatory;
+                width: 100vw;
+                position: relative;
+                left: 50%;
+                right: 50%;
+                margin-left: -50vw;
+                margin-right: -50vw;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .workflow-step {
+                min-width: 200px !important;
+                scroll-snap-align: center;
+            }
+
+            .nav {
+                z-index: 998 !important;
+            }
+
+            .mobile-menu {
+                z-index: 1005 !important;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .hide-mobile {
+                display: none !important;
+            }
+
+
+            .bento-grid,
+            .ds-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bento-card--large,
+            .bento-card--tall,
+            .bento-card--wide {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+
+            .p1-meta-strip {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .v-timeline {
+                padding-left: 0;
+            }
+
+            .v-timeline::before {
+                display: none;
+            }
+
+            .v-step-dot {
+                display: none;
+            }
+
+            .b-a-grid {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+
+            /* Why It Mattered: stacked */
+            .flow-diagram {
+                flex-direction: column;
+                gap: 16px;
+                padding: var(--spacing-md);
+            }
+
+            .flow-arrow {
+                transform: rotate(90deg);
+                margin: 8px 0;
+            }
+
+            /* Strategy Cards horizontally scrollable */
+            .strategy-cards {
+                flex-direction: row;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                padding-bottom: 16px;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: thin;
+            }
+
+            .strategy-card {
+                min-width: 90%;
+                scroll-snap-align: center;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            /* Research Insights stacked */
+            .insight-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <style>
+        @media (max-width: 900px) {
+            .workflow-scroll {
+                flex-wrap: nowrap !important;
+                justify-content: flex-start !important;
+                overflow-x: auto !important;
+                padding-bottom: 24px !important;
+                scroll-padding: 0 16px;
+                scroll-snap-type: x mandatory;
+                width: 100vw;
+                position: relative;
+                left: 50%;
+                right: 50%;
+                margin-left: -50vw;
+                margin-right: -50vw;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .workflow-step {
+                min-width: 200px !important;
+                scroll-snap-align: center;
+            }
+
+            .nav {
+                z-index: 998 !important;
+            }
+
+            .mobile-menu {
+                z-index: 1005 !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="nav" id="navbar" role="banner">
+        <div class="nav__container">
+            <a aria-label="Rahul Nalte - Home" class="nav__logo" href="index.html">
+                <svg class="mandala-icon" fill="none" height="36" stroke="var(--color-accent)" stroke-width="1.2"
+                    viewbox="0 0 24 24" width="36">
+                    <circle cx="12" cy="12" r="10" stroke-dasharray="2 3"></circle>
+                    <path d="M12 2 L12 22 M2 12 L22 12"></path>
+                    <path d="M4.93 4.93 L19.07 19.07 M4.93 19.07 L19.07 4.93"></path>
+                    <circle cx="12" cy="12" fill="var(--color-accent)" r="3"></circle>
+                </svg>
+                <span class="nav__logo-text">Rahul Nalte</span>
+            </a>
+            <nav aria-label="Main navigation" class="nav__links">
+                <a class="nav__link" href="index.html#work">Experience</a>
+                <a class="nav__link" href="index.html#contact">Connect</a>
+            </nav>
+            <div style="display: flex; align-items: center; gap: var(--spacing-sm);">
+                <a class="nav__link nav__link--cta" href="./Resume/Rahul_Nalte_UI_UX_Resume_2026.pdf" download="Rahul_Nalte_UI_UX_Resume_2026.pdf"
+                    style="background: black; color: white !important;" target="_blank">Resume</a>
+                <button aria-controls="mobileMenu" aria-expanded="false" aria-label="Toggle mobile menu"
+                    class="nav__toggle" id="navToggle">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div aria-hidden="true" aria-label="Mobile navigation" aria-modal="true" class="mobile-menu" id="mobileMenu"
+            role="dialog">
+            <nav class="mobile-menu__links">
+                <a class="mobile-menu__link" href="index.html#work">Experience</a>
+                <a class="mobile-menu__link" href="index.html#contact">Connect</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <!--Hero Section-->
+        <section class="page-header container hero-z">
+            <div class="hero-z__container split-grid split-grid-lg">
+
+                <div class="reveal-left">
+
+                    <div
+                        style="display:inline-flex; align-items:center; gap:8px; padding:6px 16px; background:rgba(16,185,129,0.1); color:#10b981; border-radius:24px; font-size:12px; font-weight:600; margin-bottom:24px; border: 1px solid rgba(16,185,129,0.2);">
+
+                        <svg fill="none" height="14" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"
+                            width="14">
+
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+
+                        </svg>
+
+                        Protected Under NDA
+
+                    </div>
+
+
+                    <h1 class="section-title">
+                        VCM's
+                    </h1>
+
+
+                    <p class="section-subtitle" style="margin: 0; margin-bottom: var(--spacing-lg);">
+
+                        Designing a centralized version control experience that improves traceability, collaboration,
+                        and approval workflows for defence engineering teams.
+                    </p>
+
+
+                    <a class="btn btn--primary" data-magnetic="" href="project2detail.html">
+
+                        View Detailed Case Study →
+
+                    </a>
+
+                </div>
+
+
+                <div>
+
+                    <!-- Abstract Wide UI Representation -->
+
+                    <div class="securelink-hero-showcase">
+
+                        <div class="securelink-hero-track">
+
+                            <!-- SCREEN 1 -->
+                            <div class="securelink-hero-slide">
+                                <img src="./Image/Project2/HIFI/1 Dashboard.png" alt="SecureLink Dashboard" />
+                            </div>
+
+
+                            <!-- SCREEN 2 -->
+                            <div class="securelink-hero-slide">
+                                <img src="./Image/Project2/HIFI/2 Version Control.png"
+                                    alt="SecureLink Connected Device" />
+                            </div>
+
+
+                            <!-- SCREEN 3 -->
+                            <div class="securelink-hero-slide">
+                                <img src="./Image/Project2/HIFI/3 Upload New Version.png"
+                                    alt="SecureLink Message Screen" />
+                            </div>
+
+
+                            <!-- SCREEN 4 -->
+                            <div class="securelink-hero-slide">
+                                <img src="./Image/Project2/HIFI/4 Documentation.png" alt="SecureLink File Exchange" />
+                            </div>
+
+
+                            <!-- SCREEN 5 -->
+                            <div class="securelink-hero-slide">
+                                <img src="./Image/Project2/HIFI/5 Activity Tracking.png" alt="SecureLink Activity" />
+                            </div>
+
+                            <!-- SCREEN 6 -->
+                            <div class="securelink-hero-slide">
+                                <img src="./Image/Project2/HIFI/6 Reports.png" alt="Reports" />
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+        <!-- 2.Notices-->
+        <section class="section">
+            <div class="container" style="
+        width:100%;
+        box-sizing:border-box;
+        padding:16px 20px;
+        background:rgba(16,185,129,0.06);
+        border:1px solid rgba(16,185,129,0.15);
+        border-radius:12px;
+        color:var(--text-secondary);
+        font-size:13px;
+        line-height:1.6;
+    ">
+
+                <div style="
+            display:flex;
+            align-items:flex-start;
+            gap:10px;
+            width:100%;
+        ">
+
+                    <!-- Secure Icon -->
+                    <svg fill="none" height="18" stroke="#10b981" stroke-width="2" viewBox="0 0 24 24" width="18"
+                        style="flex:0 0 18px; margin-top:2px;">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        <path d="m9 12 2 2 4-4"></path>
+                    </svg>
+
+                    <!-- Content -->
+                    <div style="min-width:0; flex:1;">
+
+                        <strong style="color:var(--text-primary);">
+                            Confidentiality Note
+                        </strong>
+
+                        <p style="margin:6px 0 0;">
+                            This case study omits sensitive product, operational, technical,
+                            deployment details.
+                        </p>
+
+                        <p style="margin:4px 0 0;">
+                            Visuals and descriptions are presented at a high level to protect
+                            confidential project information.
+                        </p>
+
+                        <p style="margin:4px 0 0;">
+                            Where project evidence was unavailable, assumptions and qualitative
+                            observations are clearly identified.
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- 2. QUICK SNAPSHOT -->
+        <section class="section section--alt" id="overview">
+            <div class="container reveal-up">
+                <div class="psil-grid">
+                    <div class="psil-item">
+                        <div class="psil-lbl">Problem</div>
+                        <div class="psil-val">Complex version tracking made information difficult to discover.</div>
+                    </div>
+                    <div class="psil-item">
+                        <div class="psil-lbl">Solution</div>
+                        <div class="psil-val">Centralized version management improved visibility, traceability.</div>
+                    </div>
+                    <div class="psil-item">
+                        <div class="psil-lbl">Impact</div>
+                        <div class="psil-val">Improved accountability, collaboration &
+                            workflow efficiency.</div>
+                    </div>
+                    <div class="psil-item">
+                        <div class="psil-lbl">Learning</div>
+                        <div class="psil-val">Simplify complexity through structure & clear
+                            information.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- 3. THE PROBLEM -->
+        <section class="section">
+            <div class="container reveal-up">
+                <div class="section-header">
+                    <div class="section-label">The Problem </div>
+                    <h2 class="section-title">Understanding</h2>
+                </div>
+                <div
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--spacing-lg);">
+                    <div class="problem-card">
+
+                        <h3>1. What is current?</h3>
+                    </div>
+                    <div class="problem-card">
+
+                        <h3>2. What changed?</h3>
+                    </div>
+                    <div class="problem-card">
+
+                        <h3>3. Who changed it?</h3>
+                    </div>
+                    <div class="problem-card">
+
+                        <h3>4. Why did it change?</h3>
+                    </div>
+                    <div class="problem-card">
+
+                        <h3>5. What supports it?</h3>
+                    </div>
+                    <div class="problem-card">
+
+                        <h3>6. Is it approved?</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- 4. RESEARCH & UX GOALS -->
+        <section class="section section--alt">
+            <div class="container split-grid reveal-up">
+                <div>
+                    <div class="section-header" style="text-align: center; margin-left: auto; margin-right: auto; width: 100%;">
+                        <div class="section-label" style="text-align: center;">Goals & Objectives </div>
+                        <h2 class="section-title" style="text-align: center; margin-left: auto; margin-right: auto; max-width: 800px;">Make the system easier to understand, operate, and trust.</h2>
+                    </div>
+                    <p style="margin-bottom: 24px; color:var(--color-text-2);"><strong>How might we</strong> redesign an
+                        enterprise
+                        version management platform so engineering teams can discover, manage, review, and trace project
+                        information efficiently while maintaining the accountability required by complex organizational
+                        workflows?</p>
+                    <div class="insight-cards" style="grid-template-columns: 1fr;">
+                        <div class="insight-card">
+                            <strong style="display:block; margin-bottom:8px;">Key Behavioral Insight</strong>
+                            <span style="color:var(--color-text-2);">"Users need clear history, context, and ownership
+                                to act confidently.
+                                "</span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 24px;">Research Findings</h3>
+                    <div class="goal-cards" style="grid-template-columns: 1fr;">
+                        <div class="goal-card" style="padding: 16px; display:flex; align-items:center; gap:16px;">
+                            <strong>Poor Information Visibility</strong>
+                        </div>
+                        <div class="goal-card" style="padding: 16px; display:flex; align-items:center; gap:16px;">
+                            <strong>Limited Traceability</strong>
+                        </div>
+                        <div class="goal-card" style="padding: 16px; display:flex; align-items:center; gap:16px;">
+                            <strong>Complex Data Management</strong>
+                        </div>
+                        <div class="goal-card" style="padding: 16px; display:flex; align-items:center; gap:16px;">
+                            <strong>Information Around the System</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- 5.Why it matter-->
+        <section class="section section--alt">
+            <div class="container reveal-up">
+                <div class="section-header">
+                    <div class="section-label">Impact</div>
+                    <h2 class="section-title">Why it mattered</h2>
+                </div>
+                <div class="flow-diagram">
+                    <div class="flow-node">Scattered Information
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-node">Too Much Effort</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-node">Low Confidence</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-node">Slower Work</div>
+                </div>
+            </div>
+        </section>
+        <!-- 6 User Persona -->
+        <section class="section">
+            <div class="container reveal-up">
+                <div class="section-label"
+                    style="display:flex; justify-content:center; align-items:center; text-align:center;">
+                    Target Audience
+                </div>
+                <h2 class="section-title" style="text-align: center; margin-bottom: 48px;">Designing for the
+                    Software Engineer.</h2>
+
+                <div class="bento-grid">
+                    <!-- Main Persona Card -->
+                    <div class="bento-card bento-card--large">
+                        <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px;">
+                            <img src="./Image/Profile/Project2User.jpg" alt="System Operator Persona"
+                                style="width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 1px solid var(--color-border);" />
+                            <div>
+                                <h3 style="margin: 0; font-size: 24px;">Developer</h3>
+                                <div style="color: var(--color-text-3); font-size: 14px;">High-Security Offline
+                                    Environments</div>
+                            </div>
+                        </div>
+                        <div class="mobile-read-more">
+                            <p style="margin: 0; font-size: 15px; line-height: 1.6;">“I need to quickly know which
+                                version is current and whether I can trust its status.</p>
+                            <div class="read-more-content">
+                                <p style="margin-top: 10px; font-size: 15px; line-height: 1.6;">I shouldn’t have to
+                                    search across multiple places to understand what changed, who changed it, and which
+                                    documents or approvals support it. The system should give me enough context to make
+                                    the right decision confidently without reconstructing the story myself.”</p>
+                            </div>
+                            <button class="read-more-btn" onclick="toggleReadMore(this)">Read More</button>
+                        </div>
+                    </div>
+
+                    <!-- Small Objective Card -->
+                    <div class="bento-card">
+                        <div
+                            style="background: rgba(239, 68, 68, 0.1); width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; border: 1px solid rgba(239, 68, 68, 0.2); box-shadow: 0 4px 12px rgba(239, 68, 68, 0.1);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z">
+                                </path>
+                                <line x1="12" y1="9" x2="12" y2="13"></line>
+                                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                            </svg>
+                        </div>
+                        <h4 style="margin-bottom: 8px;">The Friction</h4>
+                        <p style="font-size: 13px; color: var(--color-text-3);">Fragmented information made version
+                            tracking difficult.</p>
+                    </div>
+
+                    <!-- Small Goal Card -->
+                    <div class="bento-card">
+
+                        <h4 style="margin-bottom: 8px;">The Goal</h4>
+                        <p style="font-size: 13px; color: var(--color-text-3);">Make project information clear,
+                            traceable, and actionable.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--7 Research-->
+        <section class="section section--alt">
+            <div class="container reveal-up">
+                <div class="section-header">
+                    <div class="section-label">RESEARCH Insights </div>
+                    <h2 class="section-title">What We Found</h2>
+                </div>
+                <div class="insight-cards">
+                    <div class="insight-card">
+                        <h3 style="margin-bottom:8px;">Poor Discoverability</h3>
+                        <p style="color:var(--color-text-2);">Important project details were scattered across multiple
+                            workflows and screens.</p>
+                    </div>
+                    <div class="insight-card">
+                        <h3 style="margin-bottom:8px;">Manual Traceability</h3>
+                        <p style="color:var(--color-text-2);">Users struggled connecting changes, approvals, documents,
+                            users, and timestamps.</p>
+                    </div>
+                    <div class="insight-card">
+                        <h3 style="margin-bottom:8px;">Data Complexity</h3>
+                        <p style="color:var(--color-text-2);">Dense technical records made searching, comparing, and
+                            verifying difficult.</p>
+                    </div>
+                    <div class="insight-card">
+                        <h3 style="margin-bottom:8px;">Misaligned Structure</h3>
+                        <p style="color:var(--color-text-2);">Navigation reflected system organization rather than
+                            engineers’ operational tasks.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--8 User Workflow-->
+        <section class="section">
+            <div class="container reveal-up">
+                <div class="section-header">
+                    <div class="section-label">Journey</div>
+                    <h2 class="section-title">User Workflow Painpoints</h2>
+                </div>
+                <div class="workflow-scroll"
+                    style="background:var(--color-surface); padding: var(--spacing-xl); border-radius: var(--radius-lg);">
+                    <div class="workflow-step" style="text-align:center; min-width:120px;">
+                        <div
+                            style="width:48px;height:48px;background:var(--color-bg);border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;border:1px solid var(--color-accent);color:var(--color-accent);">
+                            1</div>
+                        <b>Discover</b><br /><span style="color:var(--color-text-3); font-size:14px;">Find the
+                            release</span>
+                    </div>
+                    <div
+                        style="flex:0 0 auto; display:flex; align-items:center; padding:0 16px; font-size:24px; color:var(--color-accent); opacity:0.4; font-weight:bold;">
+                        →</div>
+                    <div class="workflow-step" style="text-align:center; min-width:120px; position:relative;">
+                        <span
+                            style="position:absolute; top:-10px; right:20px; width:12px; height:12px; background:red; border-radius:50%;"></span>
+                        <div
+                            style="width:48px;height:48px;background:var(--color-bg);border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;border:1px solid var(--color-accent);color:var(--color-accent);">
+                            2</div>
+                        <b>Define</b><br /><span style="color:red; font-size:14px;">Understand it's details</span>
+                    </div>
+                    <div
+                        style="flex:0 0 auto; display:flex; align-items:center; padding:0 16px; font-size:24px; color:var(--color-accent); opacity:0.4; font-weight:bold;">
+                        →</div>
+                    <div class="workflow-step" style="text-align:center; min-width:120px; position:relative;">
+                        <span
+                            style="position:absolute; top:-10px; right:20px; width:12px; height:12px; background:red; border-radius:50%;"></span>
+                        <div
+                            style="width:48px;height:48px;background:var(--color-bg);border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;border:1px solid var(--color-accent);color:var(--color-accent);">
+                            3</div>
+                        <b>Document</b><br /><span style="color:red; font-size:14px;">Update with accuracy</span>
+                    </div>
+                    <div
+                        style="flex:0 0 auto; display:flex; align-items:center; padding:0 16px; font-size:24px; color:var(--color-accent); opacity:0.4; font-weight:bold;">
+                        →</div>
+                    <div class="workflow-step" style="text-align:center; min-width:120px;">
+                        <div
+                            style="width:48px;height:48px;background:var(--color-bg);border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;border:1px solid var(--color-accent);color:var(--color-accent);">
+                            4</div>
+                        <b>Deliver</b><br /><span style="color:var(--color-text-3); font-size:14px;">Build
+                            Confidence</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- 9. INFORMATION ARCHITECTURE -->
+        <section class="section">
+            <div class="container reveal-up">
+                <div class="section-header">
+                    <div class="section-label">Information Architecture</div>
+                    <h2 class="section-title">How It Flow</h2>
+                </div>
+                <div class="tree-diagram">
+                    <h3 style="font-family:var(--font-serif); font-size:32px;">Discover <br> Projects & Repositories
+                    </h3>
+                    <div class="flow-arrow">↓</div>
+                    <h3 style="font-family:var(--font-serif); font-size:32px;">Manage <br>Versions & Metadata</h3>
+                    <div class="flow-arrow">↓</div>
+                    <h3 style="font-family:var(--font-serif); font-size:32px;">Document <br>Files & Certifications
+                    </h3>
+                    <div class="flow-arrow">↓</div>
+                    <h3 style="font-family:var(--font-serif); font-size:32px;">Audit <br> Activity & Reports</h3>
+                </div>
+            </div>
+        </section>
+        <!--10 Wireframe-->
+        <section class="section">
+            <div class="container reveal-up">
+
+                <div class="section-header" style="text-align: center; margin-bottom: var(--spacing-3xl);">
+                    <div class="section-label">Wireframe</div>
+                    <h2 class="section-title">Important interactions </h2>
+
+                </div>
+
+                <!-- Enterprise Control Center -->
+                <div class="design-step">
+                    <div class="split-grid">
+
+                        <div class="case-mockup">
+                            <div class="mockup-bar"></div>
+
+                            <div class="mockup-content">
+                                <span style="font-weight:600; margin-bottom:12px; display:block;">
+                                    Enterprise Control Center
+                                </span>
+
+                                <div
+                                    style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:14px;">
+
+                                    <div class="mock-box" style="padding:14px; border:1px solid var(--color-border);">
+                                        <div style="font-size:11px; color:var(--color-text-3);">
+                                            Latest Version
+                                        </div>
+                                        <div style="font-weight:600; margin-top:5px;">
+                                            v4.2.1
+                                        </div>
+                                        <div style="font-size:11px; color:#10B981; margin-top:4px;">
+                                            ● Approved
+                                        </div>
+                                    </div>
+
+                                    <div class="mock-box" style="padding:14px; border:1px solid var(--color-border);">
+                                        <div style="font-size:11px; color:var(--color-text-3);">
+                                            Projects
+                                        </div>
+                                        <div style="font-weight:600; margin-top:5px;">
+                                            128
+                                        </div>
+                                        <div style="font-size:11px; color:var(--color-text-3); margin-top:4px;">
+                                            Active repositories
+                                        </div>
+                                    </div>
+
+                                    <div class="mock-box" style="padding:14px; border:1px solid var(--color-border);">
+                                        <div style="font-size:11px; color:var(--color-text-3);">
+                                            Recent Activity
+                                        </div>
+                                        <div style="font-weight:600; margin-top:5px;">
+                                            24
+                                        </div>
+                                        <div style="font-size:11px; color:var(--color-text-3); margin-top:4px;">
+                                            Last 24 hours
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="mock-box" style="padding:12px; border:1px solid var(--color-border);">
+                                    <div style="font-size:11px; color:var(--color-text-3); margin-bottom:7px;">
+                                        Recent Project Updates
+                                    </div>
+
+                                    <div
+                                        style="display:flex; justify-content:space-between; padding:7px 0; border-bottom:1px solid var(--color-border);">
+                                        <span style="font-size:12px;">Project Atlas</span>
+                                        <span style="font-size:11px; color:#10B981;">v4.2.1 Approved</span>
+                                    </div>
+
+                                    <div style="display:flex; justify-content:space-between; padding:7px 0;">
+                                        <span style="font-size:12px;">Project Orion</span>
+                                        <span style="font-size:11px; color:var(--color-text-3);">Updated 18m ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4>1: Enterprise Control Center</h4>
+
+                            <h3 style="margin: 12px 0;">
+                                Turning the dashboard into an orientation layer.
+                            </h3>
+
+                            <div class="mobile-read-more">
+                                <div class="read-more-content">
+                                    <p style="color:var(--color-text-2); margin-bottom:16px;">
+                                        Instead of treating the dashboard as a collection of analytics,
+                                        I designed it around the questions engineers need to answer first:
+                                        What is current? What changed? What requires attention?
+                                    </p>
+
+                                    <ul
+                                        style="list-style:none; display:flex; flex-wrap:wrap; gap:10px; padding:0; margin:0;">
+                                        <li
+                                            style="padding:6px 12px; border-radius:14px; background:rgba(16,185,129,.08); color:#059669;">
+                                            Latest Versions
+                                        </li>
+                                        <li
+                                            style="padding:6px 12px; border-radius:14px; background:rgba(59,130,246,.08); color:#2563EB;">
+                                            Project Updates
+                                        </li>
+                                        <li
+                                            style="padding:6px 12px; border-radius:14px; background:rgba(245,158,11,.08); color:#D97706;">
+                                            Activity
+                                        </li>
+                                    </ul>
+                                </div>
+                                <button class="read-more-btn" onclick="toggleReadMore(this)">More</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!-- Repository -->
+                <div class="design-step">
+                    <div class="split-grid">
+
+                        <div>
+                            <h4>2: Repository &amp; Data Discovery</h4>
+
+                            <h3 style="margin: 12px 0;">
+                                Turning dense records into a decision-oriented workspace.
+                            </h3>
+
+                            <div class="mobile-read-more">
+                                <div class="read-more-content">
+                                    <p style="color:var(--color-text-2);">
+                                        The repository was redesigned around the user's scan path:
+                                        identify the project, compare versions, verify status, and take action.
+                                        Search, filtering, sorting, and contextual actions became core parts
+                                        of the workflow rather than secondary controls.
+                                    </p>
+
+                                    <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:16px;">
+                                        <span
+                                            style="font-size:12px; padding:6px 10px; border:1px solid var(--color-border); border-radius:8px;">
+                                            Search
+                                        </span>
+                                        <span
+                                            style="font-size:12px; padding:6px 10px; border:1px solid var(--color-border); border-radius:8px;">
+                                            Filters
+                                        </span>
+                                        <span
+                                            style="font-size:12px; padding:6px 10px; border:1px solid var(--color-border); border-radius:8px;">
+                                            Sorting
+                                        </span>
+                                        <span
+                                            style="font-size:12px; padding:6px 10px; border:1px solid var(--color-border); border-radius:8px;">
+                                            Export
+                                        </span>
+                                    </div>
+                                </div>
+                                <button class="read-more-btn" onclick="toggleReadMore(this)">More</button>
+                            </div>
+                        </div>
+
+                        <div class="case-mockup">
+                            <div class="mockup-bar"></div>
+
+                            <div class="mockup-content">
+
+                                <div
+                                    style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                                    <span style="font-weight:600;">Ground Repository</span>
+
+                                    <div style="display:flex; gap:6px;">
+                                        <span
+                                            style="font-size:10px; padding:5px 9px; border:1px solid var(--color-border); border-radius:6px;">
+                                            Filter
+                                        </span>
+                                        <span
+                                            style="font-size:10px; padding:5px 9px; background:#2563EB; color:white; border-radius:6px;">
+                                            + New Version
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div
+                                    style="padding:8px 10px; border:1px solid var(--color-border); border-radius:6px; margin-bottom:10px; color:var(--color-text-3); font-size:11px;">
+                                    Search projects, versions or owners...
+                                </div>
+
+                                <div
+                                    style="display:grid; grid-template-columns:1.4fr .8fr .8fr .8fr; gap:8px; padding:8px; background:rgba(100,116,139,.06); font-size:10px; font-weight:600;">
+                                    <span>Project / Version</span>
+                                    <span>Status</span>
+                                    <span>Updated</span>
+                                    <span>Action</span>
+                                </div>
+
+                                <div
+                                    style="display:grid; grid-template-columns:1.4fr .8fr .8fr .8fr; gap:8px; padding:10px 8px; border-bottom:1px solid var(--color-border); font-size:10px; align-items:center;">
+                                    <span>
+                                        <strong>Atlas</strong><br>
+                                        <span style="color:var(--color-text-3);">v4.2.1</span>
+                                    </span>
+                                    <span style="color:#059669;">● Approved</span>
+                                    <span>Today</span>
+                                    <span style="color:#2563EB;">View</span>
+                                </div>
+
+                                <div
+                                    style="display:grid; grid-template-columns:1.4fr .8fr .8fr .8fr; gap:8px; padding:10px 8px; font-size:10px; align-items:center;">
+                                    <span>
+                                        <strong>Orion</strong><br>
+                                        <span style="color:var(--color-text-3);">v3.8.0</span>
+                                    </span>
+                                    <span style="color:#D97706;">● Review</span>
+                                    <span>Yesterday</span>
+                                    <span style="color:#2563EB;">View</span>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!-- Version Upload -->
+                <div class="design-step">
+                    <div class="split-grid">
+
+                        <div class="case-mockup annotated-ui">
+                            <div class="mockup-bar"></div>
+
+                            <div class="mockup-content">
+
+                                <div style="font-weight:600; margin-bottom:14px;">
+                                    Add New Version
+                                </div>
+
+                                <div style="display:flex; gap:6px; margin-bottom:18px;">
+                                    <span
+                                        style="width:22px; height:22px; border-radius:50%; background:#2563EB; color:white; display:flex; align-items:center; justify-content:center; font-size:10px;">1</span>
+                                    <span
+                                        style="width:22px; height:22px; border-radius:50%; background:#2563EB; color:white; display:flex; align-items:center; justify-content:center; font-size:10px;">2</span>
+                                    <span
+                                        style="width:22px; height:22px; border-radius:50%; background:var(--color-border); display:flex; align-items:center; justify-content:center; font-size:10px;">3</span>
+                                    <span
+                                        style="width:22px; height:22px; border-radius:50%; background:var(--color-border); display:flex; align-items:center; justify-content:center; font-size:10px;">4</span>
+                                </div>
+
+                                <div style="font-size:11px; color:var(--color-text-3); margin-bottom:5px;">
+                                    Project
+                                </div>
+
+                                <div class="mock-box"
+                                    style="padding:10px; border:1px solid var(--color-border); margin-bottom:10px; font-size:11px;">
+                                    Project Atlas
+                                </div>
+
+                                <div style="font-size:11px; color:var(--color-text-3); margin-bottom:5px;">
+                                    Version
+                                </div>
+
+                                <div class="mock-box"
+                                    style="padding:10px; border:1px solid var(--color-border); margin-bottom:10px; font-size:11px;">
+                                    4.2.1
+                                </div>
+
+                                <div class="mock-box"
+                                    style="padding:18px; border:2px dashed #CBD5E1; text-align:center; margin-bottom:12px;">
+                                    <div style="font-weight:600; font-size:11px;">
+                                        Upload Release Artifact
+                                    </div>
+                                    <div style="font-size:10px; color:var(--color-text-3); margin-top:4px;">
+                                        Drag &amp; drop or browse files
+                                    </div>
+                                </div>
+
+                                <div style="display:flex; justify-content:space-between; align-items:center;">
+                                    <span style="font-size:10px; color:#059669;">
+                                        ✓ Metadata validated
+                                    </span>
+
+                                    <span
+                                        style="padding:6px 13px; background:#2563EB; color:white; border-radius:6px; font-size:10px;">
+                                        Continue
+                                    </span>
+                                </div>
+
+                            </div>
+
+                            <div class="hotspot" style="top:30%; left:80%;">1</div>
+                            <div class="hotspot" style="top:72%; left:48%;">2</div>
+
+                        </div>
+
+                        <div>
+                            <h4>3: Guided Version Upload</h4>
+
+                            <h3 style="margin: 12px 0;">
+                                Designing for accuracy over speed.
+                            </h3>
+
+                            <div class="mobile-read-more">
+                                <div class="read-more-content">
+                                    <p style="color:var(--color-text-2); margin-bottom:16px;">
+                                        Version creation was structured as a progressive workflow instead
+                                        of a single information-heavy form. Metadata, artifacts, documents,
+                                        certification, validation, and review were separated into clear steps.
+                                    </p>
+
+                                    <ul style="list-style:none; padding:0; margin:0; display:grid; gap:8px;">
+                                        <li>✓ Project identification</li>
+                                        <li>✓ Version metadata</li>
+                                        <li>✓ Artifact upload</li>
+                                        <li>✓ Supporting documentation</li>
+                                        <li>✓ Certification information</li>
+                                        <li>✓ Review &amp; confirmation</li>
+                                    </ul>
+                                </div>
+                                <button class="read-more-btn" onclick="toggleReadMore(this)">More</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!-- Traceability -->
+                <div class="design-step">
+                    <div class="split-grid">
+
+                        <div>
+                            <h4>4: Traceability &amp; Activity</h4>
+
+                            <h3 style="margin: 12px 0;">
+                                Designing the system's memory.
+                            </h3>
+
+                            <div class="mobile-read-more">
+                                <div class="read-more-content">
+                                    <p style="color:var(--color-text-2);">
+                                        Activity tracking was treated as a first-class UX capability.
+                                        Each meaningful action was presented with enough context to answer
+                                        the four questions users need during review:
+                                        who acted, what changed, where it happened, and when.
+                                    </p>
+                                </div>
+                                <button class="read-more-btn" onclick="toggleReadMore(this)">More</button>
+                            </div>
+                        </div>
+
+                        <div class="case-mockup">
+                            <div class="mockup-bar"></div>
+
+                            <div class="mockup-content">
+
+                                <span style="font-weight:600; display:block; margin-bottom:12px;">
+                                    Activity History
+                                </span>
+
+                                <div style="border-left:2px solid #CBD5E1; padding-left:18px;">
+
+                                    <div style="position:relative; margin-bottom:18px;">
+                                        <div
+                                            style="position:absolute; left:-25px; top:2px; width:10px; height:10px; background:#10B981; border-radius:50%;">
+                                        </div>
+
+                                        <div style="font-size:12px; font-weight:600;">
+                                            Version approved
+                                        </div>
+
+                                        <div style="font-size:10px; color:var(--color-text-3); margin-top:3px;">
+                                            Project Atlas • v4.2.1
+                                        </div>
+
+                                        <div style="font-size:10px; color:var(--color-text-3); margin-top:3px;">
+                                            Reviewed by System Reviewer • Today, 14:32
+                                        </div>
+                                    </div>
+
+                                    <div style="position:relative; margin-bottom:18px;">
+                                        <div
+                                            style="position:absolute; left:-25px; top:2px; width:10px; height:10px; background:#2563EB; border-radius:50%;">
+                                        </div>
+
+                                        <div style="font-size:12px; font-weight:600;">
+                                            New version uploaded
+                                        </div>
+
+                                        <div style="font-size:10px; color:var(--color-text-3); margin-top:3px;">
+                                            Project Atlas • v4.2.1
+                                        </div>
+
+                                        <div style="font-size:10px; color:var(--color-text-3); margin-top:3px;">
+                                            Uploaded by Engineering User • Today, 13:48
+                                        </div>
+                                    </div>
+
+                                    <div style="position:relative;">
+                                        <div
+                                            style="position:absolute; left:-25px; top:2px; width:10px; height:10px; background:#D97706; border-radius:50%;">
+                                        </div>
+
+                                        <div style="font-size:12px; font-weight:600;">
+                                            Documentation updated
+                                        </div>
+
+                                        <div style="font-size:10px; color:var(--color-text-3); margin-top:3px;">
+                                            Release documentation attached
+                                        </div>
+
+                                        <div style="font-size:10px; color:var(--color-text-3); margin-top:3px;">
+                                            Engineering User • Today, 13:41
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!-- Version Detail -->
+                <div class="design-step">
+                    <div class="split-grid">
+
+                        <div class="case-mockup">
+                            <div class="mockup-bar"></div>
+
+                            <div class="mockup-content">
+
+                                <div
+                                    style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:14px;">
+                                    <div>
+                                        <div style="font-size:10px; color:var(--color-text-3);">
+                                            PROJECT ATLAS
+                                        </div>
+
+                                        <div style="font-weight:700; margin-top:3px;">
+                                            Version 4.2.1
+                                        </div>
+                                    </div>
+
+                                    <span
+                                        style="font-size:10px; padding:5px 9px; background:rgba(16,185,129,.1); color:#059669; border-radius:12px;">
+                                        Approved
+                                    </span>
+                                </div>
+
+                                <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+
+                                    <div class="mock-box" style="padding:11px;">
+                                        <div style="font-size:10px; color:var(--color-text-3);">
+                                            Checksum
+                                        </div>
+                                        <div style="font-size:11px; font-weight:600; margin-top:4px;">
+                                            Verified
+                                        </div>
+                                    </div>
+
+                                    <div class="mock-box" style="padding:11px;">
+                                        <div style="font-size:10px; color:var(--color-text-3);">
+                                            Certification
+                                        </div>
+                                        <div style="font-size:11px; font-weight:600; margin-top:4px;">
+                                            Valid
+                                        </div>
+                                    </div>
+
+                                    <div class="mock-box" style="padding:11px;">
+                                        <div style="font-size:10px; color:var(--color-text-3);">
+                                            Documents
+                                        </div>
+                                        <div style="font-size:11px; font-weight:600; margin-top:4px;">
+                                            08 Attached
+                                        </div>
+                                    </div>
+
+                                    <div class="mock-box" style="padding:11px;">
+                                        <div style="font-size:10px; color:var(--color-text-3);">
+                                            Last Updated
+                                        </div>
+                                        <div style="font-size:11px; font-weight:600; margin-top:4px;">
+                                            Today
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4>5: Contextual Version Detail</h4>
+
+                            <h3 style="margin: 12px 0;">
+                                Bringing the complete release story together.
+                            </h3>
+
+                            <p style="color:var(--color-text-2); margin-bottom:16px;">
+                                Instead of making users navigate between separate records,
+                                the version-detail experience connected technical metadata,
+                                artifacts, documentation, certification, status, and activity
+                                within one contextual view.
+                            </p>
+
+                            <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                                <span
+                                    style="font-size:11px; padding:6px 10px; border-radius:8px; background:rgba(59,130,246,.08); color:#2563EB;">
+                                    Metadata
+                                </span>
+                                <span
+                                    style="font-size:11px; padding:6px 10px; border-radius:8px; background:rgba(16,185,129,.08); color:#059669;">
+                                    Certification
+                                </span>
+                                <span
+                                    style="font-size:11px; padding:6px 10px; border-radius:8px; background:rgba(245,158,11,.08); color:#D97706;">
+                                    Documents
+                                </span>
+                                <span
+                                    style="font-size:11px; padding:6px 10px; border-radius:8px; background:rgba(100,116,139,.08); color:var(--color-text-2);">
+                                    Activity
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <!-- 9. DESIGN STRATEGY -->
+        <!-- <section class="section">
+            <div class="container reveal-up">
+                <div class="section-header">
+                    <div class="section-label">Approach</div>
+                    <h2 class="section-title">Design Strategy</h2>
+                </div>
+                <div class="strategy-cards">
+                    <div class="strategy-card">
+                        <div><strong>Problem:</strong> Flat Folders</div>
+                        <div class="flow-arrow">→</div>
+                        <div><strong>Decision:</strong> Relational Repos</div>
+                        <div class="flow-arrow">→</div>
+                        <div><strong>Impact:</strong> Deep Traceability</div>
+                    </div>
+                    <div class="strategy-card">
+                        <div><strong>Problem:</strong> Silent Updates</div>
+                        <div class="flow-arrow">→</div>
+                        <div><strong>Decision:</strong> Mandatory Logs</div>
+                        <div class="flow-arrow">→</div>
+                        <div><strong>Impact:</strong> Audit Readiness</div>
+                    </div>
+                    <div class="strategy-card">
+                        <div><strong>Problem:</strong> Data Silos</div>
+                        <div class="flow-arrow">→</div>
+                        <div><strong>Decision:</strong> Unified Dashboards</div>
+                        <div class="flow-arrow">→</div>
+                        <div><strong>Impact:</strong> Global Transparency</div>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+        <!-- 7. UX IMPROVEMENTS -->
+        <!-- <section class="section">
+            <div class="container reveal-up">
+                <div class="section-header" style="text-align: center;">
+                    <div class="section-label">Refinements</div>
+                    <h2 class="section-title">Before &amp; After</h2>
+                </div>
+                <div class="insight-cards">
+                    <div class="insight-card" style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="color:var(--color-text-3); text-decoration:line-through;">Technical adapter
+                            names</span>
+                        <div
+                            style="flex:0 0 auto; display:flex; align-items:center; padding:0 16px; font-size:24px; color:var(--color-accent); opacity:0.4; font-weight:bold;">
+                            →</div>
+                        <span style="font-weight:600;">Unified Enterprise Repository</span>
+                    </div>
+                    <div class="insight-card" style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="color:var(--color-text-3); text-decoration:line-through;">No connection
+                            feedback</span>
+                        <div
+                            style="flex:0 0 auto; display:flex; align-items:center; padding:0 16px; font-size:24px; color:var(--color-accent); opacity:0.4; font-weight:bold;">
+                            →</div>
+                        <span style="font-weight:600;">Transparent Activity Timelines</span>
+                    </div>
+                    <div class="insight-card" style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="color:var(--color-text-3); text-decoration:line-through;">No transfer
+                            progress</span>
+                        <div
+                            style="flex:0 0 auto; display:flex; align-items:center; padding:0 16px; font-size:24px; color:var(--color-accent); opacity:0.4; font-weight:bold;">
+                            →</div>
+                        <span style="font-weight:600;">Immutable, Visual Tracking</span>
+                    </div>
+                    <div class="insight-card" style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="color:var(--color-text-3); text-decoration:line-through;">Confusing error
+                            messages</span>
+                        <div
+                            style="flex:0 0 auto; display:flex; align-items:center; padding:0 16px; font-size:24px; color:var(--color-accent); opacity:0.4; font-weight:bold;">
+                            →</div>
+                        <span style="font-weight:600;">Role-Based Access Control</span>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+
+
+        <!-- 11. FINAL UI SHOWCASE -->
+        <section class="section">
+            <div class="container reveal-up" style="text-align:center;">
+                <div class="section-header">
+                    <h2 class="section-title" style="font-size:clamp(48px, 6vw, 84px);">The Final UI</h2>
+                </div>
+                <div class="ui-gallery">
+                    <div class="ui-gallery-item">
+                        <img src="./Image/Project2/HIFI/1 Dashboard.png" alt="">
+                    </div>
+                    <div class="ui-gallery-item">
+                        <img src="./Image/Project2/HIFI/2 Version Control.png" alt="">
+                    </div>
+                    <div class="ui-gallery-item">
+                        <img src="./Image/Project2/HIFI/3 Upload New Version.png" alt="">
+                    </div>
+                    <div class="ui-gallery-item">
+                        <img src="./Image/Project2/HIFI/4 Documentation.png" alt="">
+                    </div>
+                    <div class="ui-gallery-item">
+                        <img src="./Image/Project2/HIFI/5 Activity Tracking.png" alt="">
+                    </div>
+                    <div class="ui-gallery-item">
+                        <img src="./Image/Project2/HIFI/6 Reports.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- 13. REFLECTION -->
+        <section class="section">
+            <div class="container reveal-up" style="max-width:800px; text-align:center;">
+                <h2 class="section-title">Reflection</h2>
+                <p style="font-size:24px; line-height:1.5; color:var(--color-text-2); margin-top:24px;">"This project
+                    reinforced that thoughtful UX can make complex enterprise systems clearer, more trustworthy, and
+                    easier to act on."</p>
+            </div>
+        </section>
+        <section> <!-- NEXT PROJECT -->
+            <div
+                style="text-align: center; margin-top:var(--spacing-3xl); padding-top:var(--spacing-xl); border-top:1px solid var(--color-border);">
+                <p
+                    style="color:var(--color-text-3); text-transform:uppercase; letter-spacing:0.1em; font-size:12px; margin-bottom:16px;">
+                    Next Case Study</p>
+                <a href="project3.html" class="section-title"
+                    style="text-decoration:none; display:inline-block; transition:opacity 0.2s;"
+                    onmouseover="this.style.opacity=0.7" onmouseout="this.style.opacity=1">Ethernet Data Transfers
+                    &rarr;</a>
+            </div>
+        </section>
+    </main>
+    <footer class="footer" id="contact" style="background:#000; color:#fff;">
+        <div class="container">
+            <!-- Centered Connect Section -->
+            <div aria-label="Social media links" class="footer__connect">
+                <p class="footer__connect-heading">Let's Build Better Products.</p>
+                <div class="footer__social-icons">
+                    <!-- Behance -->
+                    <a aria-label="View Behance profile" class="fsi-btn fsi-btn--behance"
+                        href="https://www.behance.net/designecreativ14" rel="noopener noreferrer" target="_blank">
+                        <svg aria-hidden="true" fill="currentColor" height="22" viewbox="0 0 24 24" width="22">
+                            <path
+                                d="M22 7h-7v-2h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14h-8.027c.13 3.211 3.483 3.312 4.588 2.029h3.168zm-7.686-4h4.965c-.105-1.547-1.136-2.219-2.477-2.219-1.466 0-2.277.768-2.488 2.219zm-9.574 6.988h-6.466v-14.967h6.953c5.476.081 5.58 5.444 2.72 6.906 3.461 1.26 3.577 8.061-3.207 8.061zm-3.466-8.988h3.584c2.508 0 2.906-3-4-3.001h-3.58v3.001zm0 6.002h3.69c2.813 0 3.336-3.134 0-3.134h-3.69v3.134z">
+                            </path>
+                        </svg>
+                        <span aria-hidden="true" class="fsi-label">Explore</span>
+                    </a>
+                    <!-- Email -->
+                    <a aria-label="Send an email to Rahul Nalte" class="fsi-btn fsi-btn--email"
+                        href="mailto:rahulnalte26@gmail.com">
+                        <svg aria-hidden="true" fill="none" height="22" stroke="currentColor" stroke-width="2"
+                            viewbox="0 0 24 24" width="22">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                            </path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                        <span aria-hidden="true" class="fsi-label">Professional</span>
+                    </a>
+                    <!-- LinkedIn -->
+                    <a aria-label="View LinkedIn profile" class="fsi-btn fsi-btn--linkedin"
+                        href="https://www.linkedin.com/in/rahulnalte25/" rel="noopener noreferrer" target="_blank">
+                        <svg aria-hidden="true" fill="currentColor" height="22" viewbox="0 0 24 24" width="22">
+                            <path
+                                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z">
+                            </path>
+                        </svg>
+                        <span aria-hidden="true" class="fsi-label">Connect</span>
+                    </a>
+                    <!-- Instagram -->
+                    <a aria-label="View Instagram profile" class="fsi-btn fsi-btn--instagram"
+                        href="https://www.instagram.com/rahulnalte_27/" rel="noopener noreferrer" target="_blank">
+                        <svg aria-hidden="true" fill="none" height="22" stroke="currentColor" stroke-width="2"
+                            viewbox="0 0 24 24" width="22">
+                            <rect height="20" rx="5" ry="5" width="20" x="2" y="2"></rect>
+                            <circle cx="12" cy="12" r="4"></circle>
+                            <circle cx="17.5" cy="6.5" fill="currentColor" r="0.5"></circle>
+                        </svg>
+                        <span aria-hidden="true" class="fsi-label">Scrolling</span>
+                    </a>
+                    <!-- Phone -->
+                    <a aria-label="Call Rahul Nalte" class="fsi-btn fsi-btn--phone" href="tel:+919420570716">
+                        <svg aria-hidden="true" fill="none" height="22" stroke="currentColor" stroke-width="2"
+                            viewbox="0 0 24 24" width="22">
+                            <path
+                                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.86a16 16 0 0 0 6.23 6.23l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z">
+                            </path>
+                        </svg>
+                        <span aria-hidden="true" class="fsi-label">Extrovert</span>
+                    </a>
+                    <!-- GitHub -->
+                    <a aria-label="View GitHub profile" class="fsi-btn fsi-btn--github"
+                        href="https://github.com/rahulnalte" rel="noopener noreferrer" target="_blank">
+                        <svg aria-hidden="true" fill="currentColor" height="22" viewbox="0 0 24 24" width="22">
+                            <path
+                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z">
+                            </path>
+                        </svg>
+                        <span aria-hidden="true" class="fsi-label">Work</span>
+                    </a>
+                </div>
+            </div>
+            <div class="footer__bottom"
+                style="text-align:center; padding-top:24px; border-top:1px solid rgba(255,255,255,0.1); color:rgba(255,255,255,0.6); font-size:14px; margin-top:24px;">
+                <p class="footer__copy">© 2026 Rahul Nalte. All rights reserved.</p>
+                <p class="footer__made" style="margin-top:8px;">Made with <span aria-label="love">❤️</span> by Rahul
+                    Nalte</p>
+            </div>
+        </div>
+    </footer>
+    <script defer="" src="js/main.js"></script>
+    <script defer="" src="js/animations.js"></script>
+    <script>
+        function toggleReadMore(btn) {
+            var container = btn.closest('.mobile-read-more');
+            if (!container) return;
+            var content = container.querySelector('.read-more-content');
+            if (!content) return;
+            if (content.style.display === 'block') {
+                content.style.display = 'none';
+                btn.textContent = btn.dataset.moreText || 'More';
+            } else {
+                content.style.display = 'block';
+                btn.textContent = 'Show Less';
+            }
+        }
+    </script>
+</body>
+
+</html>
