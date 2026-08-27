@@ -1,0 +1,847 @@
+/* =========================================
+   RESPONSIVE.CSS — Unified Mobile & Tablet Fixes
+   ========================================= */
+
+/* --- TABLET AND BELOW (Max 1023px) --- */
+@media (max-width: 1023px) {
+
+    /* Grids & Columns */
+    .skills__grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .tools__grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .process__steps {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 16px;
+        padding-bottom: 16px;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+    }
+
+    .process__step {
+        flex: 0 0 240px;
+        min-width: 240px;
+        scroll-snap-align: start;
+    }
+
+    .hero-z__desc {
+        max-width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+
+    .contact__grid {
+        align-items: stretch;
+        width: 100%;
+    }
+
+    .contact__info,
+    .contact__form-wrap,
+    .contact-form,
+    .form-group,
+    .form-input,
+    .form-textarea {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+/* --- MOBILE ONLY (Max 767px) --- */
+@media (max-width: 767px) {
+    :root {
+        --spacing-3xl: 64px;
+        --spacing-2xl: 48px;
+        --container-pad: 20px;
+        --fs-hero: clamp(34px, 10vw, 42px);
+        /* Fluid typography for hero */
+    }
+
+    /* Navigation */
+    .nav__links {
+        display: none;
+    }
+
+    .nav__toggle {
+        display: flex;
+    }
+
+    /* Hero */
+    .hero-z {
+        min-height: calc(100vh - var(--nav-height, 70px));
+        text-align: center;
+    }
+
+    .hero-z__container {
+        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-xl);
+        padding-top: 40px;
+        align-items: center;
+    }
+
+    .hero-z__content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .hero-z__desc {
+        margin: 0 auto 32px;
+        font-size: 16px;
+    }
+
+    .hero-z__actions {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 12px;
+    }
+
+    .hero-z__actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Hero Graphics - Make proportional to viewport */
+    .hero-z__visual {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 280px;
+    }
+
+    .hero-flower-wrap {
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto;
+    }
+
+    .hero-flower-svg {
+        width: 100%;
+        height: auto;
+    }
+
+    /* Other Case Study Hero Graphics */
+    .hero-intersection {
+        width: 240px;
+        height: 240px;
+    }
+
+    .hi-ring--outer {
+        width: 230px;
+        height: 230px;
+    }
+
+    .hi-ring--mid {
+        width: 170px;
+        height: 170px;
+    }
+
+    .hi-pill {
+        display: none;
+    }
+
+    /* Interactive / Pointers */
+    .hero__floaters,
+    .cursor,
+    .cursor-follower {
+        display: none !important;
+    }
+
+    /* About Section */
+    .about__grid {
+        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-xl);
+    }
+
+    .about__visual {
+        order: -1;
+    }
+
+    .about__photo-wrap {
+        max-width: 250px;
+        margin: 0 auto;
+    }
+
+    .about__photo {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 4/5;
+    }
+
+    .about__actions {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .about__actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Grids to single column for mobile */
+    .story-grid,
+    .work__grid,
+    .projects-grid,
+    .highlight-cards,
+    .social-proof__grid,
+    .contact__grid,
+    .footer__grid,
+    .bento-grid,
+    .snapshot-grid,
+    .insight-cards,
+    .goal-cards,
+    .philosophy__grid,
+    .timeline__card-header,
+    .footer__bottom,
+    .psil-grid {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-lg);
+    }
+
+    .contact__grid {
+        align-items: stretch !important;
+        width: 100% !important;
+    }
+
+    .contact__info,
+    .contact__form-wrap,
+    .contact-form,
+    .form-group,
+    .form-input,
+    .form-textarea {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .v-step-content.b-a-grid {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-md);
+    }
+
+    .sp-card {
+        border-right: none;
+        border-bottom: 1px solid var(--color-border);
+        padding: var(--spacing-md) 0;
+    }
+
+    .sp-card:last-child {
+        border-bottom: none;
+    }
+
+    .timeline {
+        padding-left: 0;
+        border-left: none;
+    }
+
+    .timeline::before,
+    .timeline__dot {
+        display: none !important;
+    }
+
+    .timeline__item {
+        padding-left: 0 !important;
+        margin-left: 0 !important;
+    }
+
+    .skills__tabs {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .skills__grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .tools__grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .testimonials__wrapper {
+        padding: 0;
+    }
+
+    .testimonial-card {
+        padding: 24px 20px;
+        font-size: 15px;
+    }
+
+    .footer__brand {
+        text-align: center;
+    }
+
+    .footer__social-icons {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 8px;
+        scrollbar-width: none;
+        gap: 12px;
+    }
+
+    .footer__social-icons::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Fix Horizontal Overflows globally */
+    img,
+    svg,
+    video,
+    iframe,
+    canvas {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .postcard-card__notch {
+        top: 108px;
+    }
+
+    .screen-slide {
+        aspect-ratio: 4/5 !important;
+        min-width: 90% !important;
+        max-width: 90% !important;
+    }
+
+    .flow-diagram {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-md);
+        overflow-x: visible;
+    }
+
+    .flow-diagram .flow-arrow {
+        transform: rotate(90deg);
+        font-size: 16px;
+        opacity: 0.5;
+    }
+}
+
+/* --- ACCESSIBILITY / MOTION / PRINT --- */
+@media print {
+
+    .nav,
+    .cursor,
+    .cursor-follower,
+    .back-to-top,
+    .hero__bg,
+    .loader {
+        display: none !important;
+    }
+
+    .hero {
+        min-height: auto;
+        padding: 40px 0;
+    }
+
+    a {
+        text-decoration: underline;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+    .hero-z {
+        min-height: auto;
+        padding: 100px 0;
+    }
+
+    .hero__floaters,
+    .hero-z__visual {
+        display: none;
+    }
+}
+
+/* ==========================================================================
+   DESKTOP BASE STYLES FOR TRACEABILITY & PROCESS TRACKS (Min 768px)
+   ========================================================================== */
+@media (min-width: 768px) {
+    .traceability-cards-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-xl);
+    }
+    .challenge-outcome-card {
+        background: var(--color-surface);
+        border-radius: var(--radius-lg);
+        padding: var(--spacing-xl);
+        border: 1px solid var(--color-border);
+    }
+    .co-track {
+        display: flex;
+        gap: var(--spacing-xl);
+        align-items: stretch;
+    }
+    .co-col {
+        flex: 1;
+    }
+    .co-col--outcome {
+        border-left: 2px solid var(--color-border);
+        padding-left: var(--spacing-xl);
+        text-align: center;
+    }
+    .co-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+    .co-title--problem { color: #EF4444; }
+    .co-title--solution { color: #10B981; }
+    .co-title--outcome { color: var(--color-text); }
+
+    .ux-components-track {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-2xl);
+    }
+
+    .swipe-hint-badge {
+        display: none !important;
+    }
+}
+
+/* ==========================================================================
+   MOBILE HORIZONTAL SWIPE TRACKS & LAYOUT ENHANCEMENTS (Max 767px)
+   ========================================================================== */
+@media (max-width: 767px) {
+    /* Swipe Signifier Badge */
+    .swipe-hint-badge {
+        display: inline-flex !important;
+        align-items: center;
+        gap: 8px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: #A5B4FC;
+        background: rgba(99, 102, 241, 0.12);
+        border: 1px solid rgba(99, 102, 241, 0.28);
+        padding: 5px 14px;
+        border-radius: 20px;
+        margin-bottom: 14px;
+        box-shadow: 0 2px 8px rgba(99, 102, 241, 0.15);
+    }
+
+    .swipe-hint-badge .swipe-arrow {
+        display: inline-block;
+        font-size: 13px;
+        color: #C084FC;
+        animation: swipeHintPulse 1.6s ease-in-out infinite;
+    }
+
+    @keyframes swipeHintPulse {
+        0%, 100% { transform: translateX(0); opacity: 0.7; }
+        50% { transform: translateX(4px); opacity: 1; }
+    }
+
+    /* Horizontal Swipe Containers */
+    .research-findings,
+    .cs-outcomes,
+    .cs-insights,
+    .cs-learnings,
+    .target-needs,
+    .goal-cards,
+    .insight-cards,
+    .ux-components-track,
+    .takeaways {
+        display: flex !important;
+        flex-direction: row !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        -webkit-overflow-scrolling: touch;
+        gap: 16px !important;
+        padding-bottom: 16px !important;
+        margin-left: calc(-1 * var(--container-pad, 20px));
+        margin-right: calc(-1 * var(--container-pad, 20px));
+        padding-left: var(--container-pad, 20px) !important;
+        padding-right: var(--container-pad, 20px) !important;
+        scrollbar-width: thin !important;
+        scrollbar-color: rgba(168, 85, 247, 0.5) rgba(255, 255, 255, 0.06) !important;
+    }
+
+    /* Visible Custom Smooth Scrollbars as Horizontal Signifier */
+    .research-findings::-webkit-scrollbar,
+    .cs-outcomes::-webkit-scrollbar,
+    .cs-insights::-webkit-scrollbar,
+    .cs-learnings::-webkit-scrollbar,
+    .target-needs::-webkit-scrollbar,
+    .goal-cards::-webkit-scrollbar,
+    .insight-cards::-webkit-scrollbar,
+    .ux-components-track::-webkit-scrollbar,
+    .takeaways::-webkit-scrollbar,
+    .co-track::-webkit-scrollbar {
+        display: block !important;
+        height: 5px !important;
+    }
+
+    .research-findings::-webkit-scrollbar-track,
+    .cs-outcomes::-webkit-scrollbar-track,
+    .cs-insights::-webkit-scrollbar-track,
+    .cs-learnings::-webkit-scrollbar-track,
+    .target-needs::-webkit-scrollbar-track,
+    .goal-cards::-webkit-scrollbar-track,
+    .insight-cards::-webkit-scrollbar-track,
+    .ux-components-track::-webkit-scrollbar-track,
+    .takeaways::-webkit-scrollbar-track,
+    .co-track::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.08) !important;
+        border-radius: 4px !important;
+    }
+
+    .research-findings::-webkit-scrollbar-thumb,
+    .cs-outcomes::-webkit-scrollbar-thumb,
+    .cs-insights::-webkit-scrollbar-thumb,
+    .cs-learnings::-webkit-scrollbar-thumb,
+    .target-needs::-webkit-scrollbar-thumb,
+    .goal-cards::-webkit-scrollbar-thumb,
+    .insight-cards::-webkit-scrollbar-thumb,
+    .ux-components-track::-webkit-scrollbar-thumb,
+    .takeaways::-webkit-scrollbar-thumb,
+    .co-track::-webkit-scrollbar-thumb {
+        background: linear-gradient(90deg, #6366F1, #A855F7) !important;
+        border-radius: 4px !important;
+    }
+
+    /* CENTERED SWIPEABLE CARDS FOR RESEARCH KEY FINDINGS IN PROJECT1DETAIL.HTML */
+    .research-findings {
+        padding-left: max(20px, calc(50vw - 145px)) !important;
+        padding-right: max(20px, calc(50vw - 145px)) !important;
+        scroll-padding-inline: calc(50vw - 145px) !important;
+    }
+
+    .research-findings .research-finding {
+        flex: 0 0 290px !important;
+        width: 290px !important;
+        min-width: 270px !important;
+        max-width: 320px !important;
+        scroll-snap-align: center !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Swipe Track Item Cards (Standard Left Align) */
+    .cs-outcome,
+    .cs-insight,
+    .target-need,
+    .goal-card,
+    .insight-card,
+    .takeaway-card {
+        flex: 0 0 85% !important;
+        min-width: 260px !important;
+        max-width: 320px !important;
+        scroll-snap-align: start !important;
+        box-sizing: border-box !important;
+    }
+
+    .ux-components-track .ux-component {
+        flex: 0 0 90% !important;
+        min-width: 280px !important;
+        scroll-snap-align: start !important;
+        margin-bottom: 0 !important;
+    }
+
+    /* Key Learning cards in reflection */
+    .cs-learnings .cs-learning {
+        flex: 0 0 85% !important;
+        min-width: 260px !important;
+        scroll-snap-align: start !important;
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        padding: 20px !important;
+    }
+
+    /* Design for Traceability section on mobile */
+    .traceability-cards-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+    .challenge-outcome-card {
+        background: var(--color-surface);
+        border-radius: var(--radius-lg);
+        padding: 16px;
+        border: 1px solid var(--color-border);
+    }
+    .co-track {
+        display: flex !important;
+        flex-direction: row !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        gap: 12px !important;
+        padding-bottom: 8px !important;
+        scrollbar-width: thin !important;
+    }
+    .co-col {
+        flex: 0 0 82% !important;
+        min-width: 230px !important;
+        scroll-snap-align: start !important;
+        background: var(--color-surface-2, rgba(255,255,255,0.03));
+        border-radius: 12px;
+        padding: 16px !important;
+        box-sizing: border-box !important;
+    }
+    .co-title {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+    .co-title--problem { color: #EF4444; }
+    .co-title--solution { color: #10B981; }
+    .co-title--outcome { color: var(--color-text); }
+
+    /* Project 2 Tree Diagram Arrow Mobile Fix (Downward ↓) */
+    .tree-diagram .flow-arrow {
+        transform: none !important;
+    }
+
+    /* Project 2 Detail Mobile Horizontal Swipe Tracks */
+    .research-insights,
+    .research-findings-grid,
+    .cs-flow,
+    .design-decisions,
+    .validation-grid,
+    .ps-transform-track,
+    .tc-list {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        -webkit-overflow-scrolling: touch !important;
+        gap: 16px !important;
+        width: 100vw !important;
+        position: relative !important;
+        left: 50% !important;
+        right: 50% !important;
+        margin-left: -50vw !important;
+        margin-right: -50vw !important;
+        padding-left: var(--container-pad, 20px) !important;
+        padding-right: var(--container-pad, 20px) !important;
+        padding-bottom: 12px !important;
+        box-sizing: border-box !important;
+        scrollbar-width: thin !important;
+        scrollbar-color: rgba(168, 85, 247, 0.5) rgba(255, 255, 255, 0.06) !important;
+    }
+
+    .research-insight,
+    .research-findings-grid .research-finding,
+    .cs-flow__step,
+    .design-decisions .design-decision,
+    .validation-grid .validation-item,
+    .ps-transform-track .ps-transform,
+    .tc-list .tc-item {
+        flex: 0 0 85% !important;
+        min-width: 270px !important;
+        max-width: 320px !important;
+        scroll-snap-align: start !important;
+        box-sizing: border-box !important;
+        margin-bottom: 0 !important;
+    }
+
+    .research-insights::-webkit-scrollbar,
+    .research-findings-grid::-webkit-scrollbar,
+    .cs-flow::-webkit-scrollbar,
+    .design-decisions::-webkit-scrollbar,
+    .validation-grid::-webkit-scrollbar,
+    .ps-transform-track::-webkit-scrollbar,
+    .tc-list::-webkit-scrollbar {
+        display: block !important;
+        height: 5px !important;
+    }
+
+    .research-insights::-webkit-scrollbar-track,
+    .research-findings-grid::-webkit-scrollbar-track,
+    .cs-flow::-webkit-scrollbar-track,
+    .design-decisions::-webkit-scrollbar-track,
+    .validation-grid::-webkit-scrollbar-track,
+    .ps-transform-track::-webkit-scrollbar-track,
+    .tc-list::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.08) !important;
+        border-radius: 4px !important;
+    }
+
+    .research-insights::-webkit-scrollbar-thumb,
+    .research-findings-grid::-webkit-scrollbar-thumb,
+    .cs-flow::-webkit-scrollbar-thumb,
+    .design-decisions::-webkit-scrollbar-thumb,
+    .validation-grid::-webkit-scrollbar-thumb,
+    .ps-transform-track::-webkit-scrollbar-thumb,
+    .tc-list::-webkit-scrollbar-thumb {
+        background: linear-gradient(90deg, #6366F1, #A855F7) !important;
+        border-radius: 4px !important;
+    }
+}
+
+/* =========================================
+   REUSABLE COMPONENTS INFINITE MARQUEE (ALL SCREEN SIZES)
+   ========================================= */
+.elements-showcase-container {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    padding: 10px 0;
+}
+
+.elements-marquee-row {
+    display: flex;
+    gap: 20px;
+    width: max-content;
+    margin-bottom: 20px;
+    will-change: transform;
+}
+
+.elements-marquee-row--1 {
+    animation: marqueeScrollLeft 35s linear infinite;
+}
+
+.elements-marquee-row--2 {
+    animation: marqueeScrollRight 40s linear infinite;
+}
+
+.elements-marquee-row:hover,
+.elements-marquee-row:active,
+.elements-marquee-row *:hover,
+.elements-marquee-row *:active,
+.elements-showcase-container:hover .elements-marquee-row {
+    animation-play-state: paused !important;
+}
+
+.elements-marquee-row .element-card {
+    flex: 0 0 240px;
+    min-width: 240px;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.elements-marquee-row .element-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-accent, #6366F1);
+}
+
+@keyframes marqueeScrollLeft {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+@keyframes marqueeScrollRight {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0); }
+}
+
+/* =========================================
+   READ MORE CTA TOGGLE & SWIPE BADGE UTILITIES
+   ========================================= */
+.swipe-hint-badge {
+    display: none;
+}
+
+@media (max-width: 767px) {
+    .swipe-hint-badge {
+        display: inline-flex !important;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        color: var(--color-accent, #6366F1);
+        background: rgba(99, 102, 241, 0.1);
+        border: 1px solid rgba(99, 102, 241, 0.25);
+        padding: 4px 12px;
+        border-radius: 20px;
+        margin-bottom: 12px;
+        text-transform: uppercase;
+    }
+
+    /* Default collapsed state for mobile content */
+    .mobile-read-more:not(.expanded):not(.is-expanded) .read-more-content,
+    .learning-card:not(.expanded):not(.is-expanded) .learning-description:not(.is-visible) {
+        display: none !important;
+        max-height: 0 !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        overflow: hidden !important;
+    }
+
+    /* Expanded state for mobile content */
+    .mobile-read-more.expanded .read-more-content,
+    .mobile-read-more.is-expanded .read-more-content,
+    .mobile-read-more .read-more-content.is-visible,
+    .mobile-read-more .read-more-content.expanded,
+    .learning-card.expanded .learning-description,
+    .learning-card .learning-description.is-visible {
+        display: block !important;
+        max-height: 5000px !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        margin-top: 12px !important;
+        overflow: visible !important;
+        transition: opacity 0.3s ease, margin-top 0.3s ease;
+    }
+
+    .mobile-read-more .read-more-btn,
+    .learning-read-more {
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+        margin-top: 12px;
+        background: transparent;
+        border: 1px solid var(--color-accent, #6366F1);
+        color: var(--color-accent, #6366F1);
+        padding: 8px 18px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .mobile-read-more .read-more-btn:hover,
+    .learning-read-more:hover {
+        background: var(--color-accent, #6366F1);
+        color: #ffffff;
+    }
+}
+
+/* Desktop / Large Screens: Always expand content, hide toggle buttons */
+@media (min-width: 768px) {
+    .mobile-read-more .read-more-content,
+    .learning-card .learning-description {
+        display: block !important;
+        max-height: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        margin-top: var(--spacing-sm, 12px) !important;
+    }
+    .mobile-read-more .read-more-btn,
+    .learning-read-more {
+        display: none !important;
+    }
+}

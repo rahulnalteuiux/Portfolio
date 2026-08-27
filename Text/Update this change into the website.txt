@@ -1,0 +1,13 @@
+Remove the Loading Experience when Refresh or Start 
+Remove the Orange Color Circle and Surrounding card form the Hero Section Replace with something Meaningful Creative or Standout Valuable 
+Add the Glass Effect for the 3 Card for the Casestudy Project 
+When Click on the Right and Left Arrow for Social Proof Then Horizontal Scroll the Card Remove the Effect like hover on the Card then Stop the Horizontal Moving 
+Remove the Screen Redering Feature of the The Final UI in Project 3 so make sure add the Horizontal Scrolling for Desktop and Swipe Feature for the Mobile 
+Add the Simple Orange Color Rectangular Layout for the following things Faster file discovery and reduced search retries.
+Improved search through metadata.
+Simplified repository exploration layout.
+Add the Back Arrow CTA To Move Back to the previous Button 
+Add the Black Color Footer in Project 3 Same and the Social Media link with the proper ICON 
+Add the Footer Connect at the center 
+Make Sure the all Button is Static Not Move when Hover then Currently moving according to the Cursor Direction 
+

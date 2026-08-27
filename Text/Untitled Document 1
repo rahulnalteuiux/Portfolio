@@ -1,0 +1,58 @@
+Improve the loading experience when refresh then add the something more enganing micro animation while loading 
+* In the **mobile responsive version**, add a **Hamburger Menu** in the header that allows users to navigate directly to the **About**, **Work**, and **Contact** sections.
+
+* Redesign the **mobile responsiveness** for both **text and images** according to modern portfolio website standards. Ensure the layout looks clean and well-balanced on mobile devices. Project cards should be displayed properly with **reduced text content** for better readability and user experience.
+
+* Ensure the **"Open to Opportunities"** badge always remains visible. Even when hovering over the profile image, it **must not be hidden or covered** by any overlay or animation.
+
+* In the **mobile version**, the **My Design Process** section should be displayed in a **single horizontal row** with **smooth horizontal scrolling/swiping** support.
+
+* Remove the large background text **"Creative"** and replace it with **"Coder."**
+
+* In the **Footer's Connect section**, enhance the hover interactions for the social media icons. Do **not** display the platform names. Instead, keep only the **official social media icons**, and when the user hovers over each icon, display the following contextual text:
+
+  * **Behance:** *Explore* Use the Black Color
+  * **LinkedIn:** *Connect* Use the Blue Color
+  * **Email:** *Professional* Use the Red Color
+  * **Phone:** *Extrovert* Use the Blue Color
+  * **Instagram:** *Scrolling* Use the Pink Color
+GitHub : Work Use the Black Color
+
+* Redesign the **three Project Cards** with a **postcard-inspired theme**. The cards should feature the distinctive **half-circle edge cutouts** commonly seen on traditional postcards, giving them a unique and premium appearance.
+
+* In the **Design Process** section, add **left and right navigation arrows** to complement the horizontal scrolling, allowing users to navigate through the cards more intuitively.
+
+* Display **only one Social Proof/Testimonial card at a time**. After a short interval, the testimonial should **automatically transition horizontally** to the next one with a smooth animation, creating a clean and engaging user experience.
+
+Used Email ID Are :
+rutunalte01@gmail.com
+
+
+Make and Add the Following Changes or things 
+Insted of the Orange element add the something which is the identity of the UI UX designer and Software developer Combine way
+Replace the Contact Me word with the something other in the Gen Z style 
+Bridging the gap between engineering and human experience. Simple but Imapactful Sentence in the single one line row 
+
+About Hero Section madhe Maze 9-10 Photo showcase karayche aahe in Window madhe mhanje Professional Looking ashi Window ji aahe na tya Home Window chi Outline asalelya Layout madhe mala maze Photo showcase karayache aahe aani te automatically Fraction of second madhe automatically Change hot rahital with the animation like Window chi ji door slide kelya nantar jasa feel yeto tya type ne 
+From algorithms to aesthetics. Ya section madhe two image showcase karayachya aahe mhanje ek Developer aahe aani to code develop karat aahe aani dusarya reactangle mhadhe UI UX designer aahe jo Low Fiedolity Screen by the hand with pencial ni Blanck Paper vr draw karat aahe 
+Header madhe always Resume showcase karat raha Contact normal Navigation thev aani Resume CTA la Thev 
+
+About Page Responsive banav aani jevha mobile madhe showcase hoil na tevha Text kami showcase kr 
+
+
+
+Project 3 Madhe He changes karayache aahet 
+NDA Prroject ch Green kar aani Live remove karun Security or Lock type ch icon add kar 
+Reimagining Enterprise File Discovery Change karun Proper Heading De Gen Z Style Professional asel aani Eka line madhe ch Complete Casestudy kalel Idea yeil kaay aahe mhanun 
+A structural redesign of an internal repository tool to accelerate how engineering teams find, verify, and utilize documentation. Simple Sentence Formation konala pn kalel ya Form madhe 
+Scroll to Casestudy la Gen Z Style madhe Kahi tari Meaning ful and Creative add kar 
+Hero Section madhe Live Project Screen add karayachi aahe mhanje je kahi feature aahe te tya madhe aapan demo level la serach and Explore karu shakto as Macbook chya window screen madhe live project showcase karayacha aahe using the screen Image 
+Jevha Mobile screen madhe Problem Outcome Role & Timeline Platform change zal pahije One Below Another showcase zal pahije so make sure ki Desktop madhe side by side in row madhe Disala pahije aani in mobile madhe in Column madhe disala pahije 
+Add image the Before and After section and Search Experience Section Advanced Hierarchy & Filters Section 
+
+Active Chip
+Hover Result
+Version Badge
+Filter Panel
+Showcase the Component instead just text 
+Big Desktop and Mobile Responsive Image in The Final UI

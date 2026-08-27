@@ -1,0 +1,239 @@
+Only use the project explanation provided below to prepare an accurate and highly refined prompt. Based on this information, I want you to design screens that reflect the quality and thinking of a FAANG-level Senior UI/UX Designer with 10+ years of experience. The screens should be of a standard that is strong enough to be showcased in my professional portfolio.
+
+Make sure every screen is:
+
+Minimalistic
+Highly professional
+Premium and modern
+Polished and visually refined
+Suitable for a Defence Sector software application
+Designed according to industry-standard UI/UX principles
+Optimized for low cognitive load
+Built using a consistent and premium design system
+Screen 1 – Core Feature: Search Experience
+
+The first screen should showcase the Core Feature – Search Experience.
+
+It should clearly demonstrate:
+
+Quick Suggestions
+Metadata Indexing
+Progressive Search
+
+The entire screen should effectively communicate an intelligent and efficient search experience, designed with the level of craftsmanship expected from a 10+ years experienced FAANG UI/UX Designer.
+
+Screen 2 – Advanced Hierarchy & Filters
+
+The second screen will be generated using the ChatGPT Image tool.
+
+It should showcase:
+
+Advanced Hierarchy & Filters
+
+Specifically, it should demonstrate:
+
+Progressive Narrowing
+An expandable filter panel that allows users to progressively reduce search results without relying on complex Boolean search strings.
+Search results displayed with a clear visual hierarchy:
+Primary Information: Name
+Secondary Information: Version and Date
+Supporting Information: Author
+
+The screen should clearly communicate an efficient filtering workflow while maintaining a clean, premium, and minimal interface.
+
+Component Highlights
+
+Across all screens, make sure the following UI components are showcased naturally in the most appropriate locations:
+
+Active Chip
+Hover Result
+Version Badge
+Filter Panel
+
+These components should feel like an integral part of the design rather than being artificially placed.
+
+Final UI (Most Important Screen)
+
+The most important screen of the entire case study will be the Final UI.
+
+This screen will be featured in the "The Final UI" section of my case study.
+
+I want this screen to be presented inside a MacBook application mockup, specifically using a clean macOS-style application window.
+
+The mockup should include only the minimal macOS window frame with the three circular controls (red, yellow, and green) in the top-left corner, without showing the entire MacBook device.
+
+Inside this application window, design the complete software interface representing the final version of the product.
+
+This should be the strongest and most visually impressive screen of the entire case study.
+
+Overall Design Expectations
+
+All screens must be:
+
+High-resolution (HD quality)
+Minimalistic
+Modern
+Premium
+Elegant
+Highly polished
+Portfolio-worthy
+Suitable for enterprise and defence-sector software
+
+The design system should feel as though it was created by a world-class FAANG design team with more than 10 years of experience.
+
+The visual quality, spacing, typography, hierarchy, interactions, and overall presentation should represent the highest level of UI design standards.
+
+The screens should effectively demonstrate:
+
+Low cognitive load
+Strong information hierarchy
+Excellent usability
+Industry-standard UX principles
+Enterprise software best practices
+Defence-sector design standards
+
+Finally, ensure the designs are so refined that they represent the highest possible quality, leaving no obvious room for further improvement.
+
+Do not generate prompts for all screens at once. Instead, provide them one by one, in a clean copy-paste format.
+
+Project :02 
+
+
+This project has stronger UX potential than it first appears because the value is not the version control itself, but how users find, understand, and manage large amounts of code efficiently. A senior UX designer would frame it around improving information architecture, search, discoverability, and decision-making rather than database storage.
+
+Overview
+
+Designed the user experience for an internal Version Control System that enabled teams to store, organize, search, and retrieve source code files along with associated metadata. The project focused on improving information discoverability, reducing search time, and simplifying code management workflows for technical users.
+
+Problem
+
+As the repository grew, locating the correct version of a code file became increasingly time-consuming. Users relied on multiple search attempts, inconsistent naming conventions, and manually reviewing metadata to identify the required file.
+
+Although the backend stored code and related information effectively, the experience of finding and managing files lacked clarity, resulting in slower workflows and reduced productivity.
+
+Goal
+
+Design an experience that enables users to:
+
+Find code files quickly using multiple search methods.
+Filter large repositories with minimal effort.
+View important metadata before opening a file.
+Reduce time spent locating the correct version.
+Improve confidence when selecting code for development or review.
+Users
+
+Primary users included:
+
+Software Developers
+QA Engineers
+Technical Leads
+
+These users regularly searched for existing code, reviewed previous versions, and referenced project metadata during development and maintenance activities.
+
+Key UX Challenges
+Large repositories made code difficult to locate.
+Search results often contained too many similar files.
+Important metadata was hidden until after opening a file.
+Users had limited ways to narrow search results.
+File identification relied heavily on naming conventions.
+Design Process
+Understanding User Workflows
+
+Mapped how developers searched for code during daily tasks, identifying friction points from initiating a search to selecting the correct file.
+
+Identifying Pain Points
+
+Observed recurring challenges, including:
+
+Repeated searches before finding the correct file.
+Difficulty distinguishing similar versions.
+Excessive navigation between search results and file details.
+Time spent manually verifying metadata.
+Information Architecture
+
+Structured the repository around users' mental models rather than database organization.
+
+Organized content into:
+
+Search
+Filters
+File List
+Metadata
+Version History
+
+This improved navigation and reduced the effort required to locate relevant files.
+
+Design Decisions
+Intelligent Search Experience
+
+Designed a search interface that supported searching by:
+
+File name
+Project
+Module
+Certificate date
+Metadata
+Keywords
+
+This allowed users to locate files through multiple paths instead of relying solely on exact file names.
+
+Advanced Filtering
+
+Introduced contextual filters that enabled users to progressively narrow large result sets without restarting their search.
+
+Filters included:
+
+Project
+Date
+Module
+Version
+File Type
+
+This reduced the number of irrelevant search results and shortened the decision-making process.
+
+Metadata-First Design
+
+Displayed key metadata directly within search results, allowing users to compare files before opening them.
+
+Visible information included:
+
+Version
+Certificate Date
+Project Name
+Last Updated
+Author (if applicable)
+
+This minimized unnecessary navigation and improved selection confidence.
+
+Improved Result Hierarchy
+
+Designed search results with clear visual hierarchy so users could quickly scan file names, metadata, and version information.
+
+Important information was prioritized while secondary details remained accessible without overwhelming the interface.
+
+Faster File Discovery
+
+Reduced interaction steps by allowing users to search, filter, preview metadata, and access files from a single workflow, minimizing context switching.
+
+UX Principles Applied
+Information Architecture
+Recognition Over Recall
+Progressive Disclosure
+Visual Hierarchy
+Consistency and Standards
+Efficient Search & Filtering
+Cognitive Load Reduction
+Outcome
+
+The redesigned experience made navigating large code repositories faster and more intuitive.
+
+Key improvements included:
+
+Faster retrieval of code files through improved search and filtering.
+Reduced effort in identifying the correct version using visible metadata.
+Improved efficiency when working with large repositories.
+Better organization and discoverability of stored code.
+Streamlined workflows for developers and QA teams.
+Reflection
+
+This project demonstrated that managing technical assets is fundamentally an information architecture challenge. By prioritizing search efficiency, metadata visibility, and intuitive navigation, the design transformed a repository of code into a system that helped users find the right information quickly and confidently, supporting faster development workflows.
